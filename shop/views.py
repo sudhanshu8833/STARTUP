@@ -84,7 +84,7 @@ def refer(request,bot_price):
 
 
 def home(request):
-    return render(request,"shop/home.html")
+    return render(request,"shop/home1.html")
 
 def about(request):
     return render(request,"shop/about.html")
