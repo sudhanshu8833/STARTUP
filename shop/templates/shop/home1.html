@@ -56,17 +56,47 @@
           </div>
         </div>
       </nav>
-
-
-
-    <!-- <div class="d-flex flex-column justify-content-center w-100 h-100">
-
-        <div class="d-flex flex-column justify-content-center align-items-center">
-        </div>
-    
-    </div> -->
-
-
+   
+<!-- new navbar -->
+<!-- <nav class="navbar navbar-expand-custom navbar-mainbg py-0">
+  <a class="navbar-brand navbar-logo" href="#"><img src="{% static 'shop/data/img/BOTS (1).png' %}" style="height: 45px;width: 45px;"></a></a>
+  <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fas fa-bars text-white"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbaautor-nav ml-">
+          <div class="hori-selector">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <li class="nav-item active">
+              <a class="nav-link" href="/"><i class="fas fa-home"></i>Home</a>
+          </li>
+          <li class="nav-item ">
+              <a class="nav-link" href="/about"><i class="fas fa-address-card"></i>About Us</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/contact"><i class="fas fa-phone-square-alt "></i>Contact Us</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/bots"><i class="fas fa-robot"></i>Bots</a>
+          </li>
+           <li class="nav-item"> -->
+              <!-- <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+          </li> --> 
+  
+          <!-- <button class="btn btn-danger px-10 mx-4" onclick="location.href='./signup'" ><i class="fas fa-user"></i> Login</button>
+            <button class="btn btn-danger px-2 mx-4" onclick="location.href='./signup'"><i class="fas fa-user-plus"></i> Sign Up</button>
+      
+                    
+          
+          
+        </ul>               
+  </div>
+</nav>  -->
 
 <!-- lets get started page  -->
  
@@ -84,17 +114,17 @@
     </div>
 </div> -->
 
-<section class ="d-flex justify-content-centre align-items-center"style="height:100vh">
+<!-- <section class ="d-flex justify-content-centre align-items-center"style="height:100vh;margin-top:0px">
     <div class="jumbotron">
         <div class="container text-center">
-             <div class="row">
-                <div class="col-lg-7 col-md-12 align-items-centre d-flex">
-                    <img src="{% static 'shop/data/img/Presentation_1.jpg' %}" class="img-fluid px-0">
+             <div class="column">
+                <div class="col-auto align-items-centre d-flex">
+                    <img src="{% static 'shop/data/img/Presentation_1.jpg' %}" class="img-fluid">
                     </div>
-                 <div class="col-lg-5 col-md-12 ">
-                    <!--<h1 class="display-4">Welcome to Bots Alley
+                 <div class="col-auto">
+                    <h1 class="display-4">Welcome to Bots Alley
                         to <span class="highlight-word">understand your users</span></h1> -->
-                        <div style="margin-top: 100px; text-align:left"> 
+                        <!-- <div style="margin-top: 100px; text-align:left"> 
                         <h3 style="white-space: nowrap;font-size:large">At Bots Alley we believe that new generation of Trading has arrived</h3>
                         <h1 class ="element">Bots Alley</h1>
                         <h3 class="lead">Bots Alley provides fully automated Trading bots that will place trades in your own trading account.Zero manual intervention</h3>
@@ -106,10 +136,38 @@
             </div>
         </div>
     </div>
-</section>
+</section>  -->
 
 
+<!-- <section class="hero-area">
+  <div class="container">
+      <div class="row">
+            <div class="col-lg-7 text-center">
+                <img src="{% static 'shop/data/img/Presentation_1.jpg' %}" alt="">
+            </div>
+          <div class="col-lg-5">
+              <div class="block">
+                  <h1 class="">Algo-99</h1>
+                  <p>Algo-99 provides fully automated Trading bots that will place trades in your own trading account.Zero manual intervention</p>
+                  <a href="/"><button class="bn30">Lets get Started</button></a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section> -->
 
+<div class="hero-area post">
+      <div class="col-lg-6 col-sm-12 absolute-bg">
+        <img src="{% static 'shop/data/img/Presentation_1.jpg' %}">
+      </div>
+<div class="col-lg-6 col-sm-12 post__container">
+        <div class="post__content block">
+          <h1 class="post__header"><span>Algo</span> <span>-</span> <span>99</span></h1>
+          <p class="post__text">Algo-99 provides fully automated Trading bots that will place trades in your own trading account.Zero manual intervention</p>
+          <a href="/"><button class="post_text bn30">Lets get Started</button></a>
+        </div>
+</div>
+</div>
 
 
 <!-- about us wala part -->
@@ -125,7 +183,7 @@
                             <a href="/"><button class="bn30">KNOW MORE</button></a>
                 </div>  
                 <div class="col-lg-6 col-md-12 align-items-centre d-flex">
-                    <img src="https://cdn.pixabay.com/photo/2018/03/31/05/06/blockchain-3277335_1280.png" alt="" class="img-fluid" ">
+                    <img src="https://cdn.pixabay.com/photo/2018/03/31/05/06/blockchain-3277335_1280.png" alt="" class="img-fluid">
                 </div>    
             </div>
         </div>
@@ -398,7 +456,9 @@
 </div>
 
 </body>
+
 <script defer src="{% static 'shop/home.js' %}"></script>
+<!-- <script defer src="{% static 'shop/navbar.js' %}"></script> -->
 <script>
   document.getElementById('sign_up_user').addEventListener('click',function(){
     location.href='./signup';
@@ -407,4 +467,5 @@ document.getElementById('login_user').addEventListener('click',function(){
     location.href='./signup';
 })
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </html>
