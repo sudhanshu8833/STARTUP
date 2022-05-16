@@ -58,3 +58,10 @@ class BOT(models.Model):
     subscription_time=models.CharField(max_length=100) 
     description=models.CharField(max_length=5000) 
     title=models.CharField(max_length=50)
+
+class orders(models.Model):
+    symbol=models.CharField(max_length=20) 
+    Price_in=models.FloatField()
+    time_in=models.DateTimeField()
+    order_type=models.CharField(max_length=4)
+    bot=models.CharField(max_length=20)

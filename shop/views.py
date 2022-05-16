@@ -452,7 +452,6 @@ def index(request):
 
 def handleLogin(request):
     if request.method=="POST":
-        print('hiiiiiiiii')
         loginusername=request.POST['username']
         loginpassword=request.POST['password']
         print(loginusername)
