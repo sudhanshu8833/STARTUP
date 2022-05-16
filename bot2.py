@@ -53,8 +53,8 @@ import urllib
 symbol='BTCUSDT'
 take_profit=2
 stop_loss=1
-time_frame='15m'
-percentage=10
+time_frame='1h'
+max_loss=10
 
 
 # %%
@@ -64,7 +64,7 @@ conn = sqlite3.connect('db.sqlite3')
 # %%
 c= conn.cursor()
 
-c.execute("SELECT * FROM shop_bot1")
+c.execute("SELECT * FROM shop_bot2")
 
 data1=c.fetchall()
 
@@ -120,12 +120,12 @@ def market_order(instrument):
         for client in name:
 
             data=client.futures_account_balance()
-            percentage=data[i][3]
+            max_loss=data[i][3]
             for j in range(len(data)):
                 
                 if data[j]['asset']=='USDT':
                     p_l=float(data[j]['withdrawAvailable'])   
-            quantity=(((float(percentage))/100) * p_l)/ltp
+            quantity=(((float(max_loss))/100) * p_l)/ltp
             quantity=quantity*1
             quantity=quantity*1000
 
@@ -158,7 +158,7 @@ def market_order(instrument):
 
         
         c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
-      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','buy','BOT1')")
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','buy','BOT2')")
         
         conn.commit()
 
@@ -179,12 +179,12 @@ def market_order1(instrument):
         for i in range(len(data1)):
             client=Client(data1[i][4],data1[i][5])
             data=client.futures_account_balance()
-            percentage=data[i][3]
+            max_loss=data[i][3]
             for j in range(len(data)):
                 
                 if data[j]['asset']=='USDT':
                     p_l=float(data[j]['withdrawAvailable'])   
-            quantity=(((float(percentage))/100) * p_l)/ltp
+            quantity=(((float(max_loss))/100) * p_l)/ltp
             quantity=quantity*1
             quantity=quantity*1000
 
@@ -211,7 +211,7 @@ def market_order1(instrument):
 
         
         c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
-      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','sell','BOT1')")
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','sell','BOT2')")
         
         conn.commit()
 
@@ -256,7 +256,7 @@ def close_position(instrument,order_type):
 
 
         c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
-      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','{str(order_type)}','BOT1')")
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','{str(order_type)}','BOT2')")
 
         conn.commit()
 
@@ -270,7 +270,6 @@ def close_position(instrument,order_type):
 
 def main():
     global ltp
-  
 
     ltp=ltp_price(symbol,name[0])
     df=candle_initial(symbol,time_frame)
@@ -319,7 +318,7 @@ time2=time.time()
 name=[]
 while True:
     if time.time()>time2+60*60:
-        c.execute("SELECT * FROM shop_bot1")
+        c.execute("SELECT * FROM shop_bot2")
         data1=c.fetchall()
         conn.commit()
         
@@ -339,3 +338,4 @@ while True:
 
 
 
+        

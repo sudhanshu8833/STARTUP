@@ -53,7 +53,7 @@ import urllib
 symbol='BTCUSDT'
 take_profit=2
 stop_loss=1
-time_frame='15m'
+time_frame='30m'
 percentage=10
 
 
@@ -270,7 +270,6 @@ def close_position(instrument,order_type):
 
 def main():
     global ltp
-  
 
     ltp=ltp_price(symbol,name[0])
     df=candle_initial(symbol,time_frame)
@@ -339,3 +338,4 @@ while True:
 
 
 
+        
