@@ -44,6 +44,182 @@ html {
       background-color: #1749ad;
     }
   }
+/* about us  */
+/* blockchain wali pic */
+.container_pic {
+	position: absolute;
+	display:block;
+	/* top: 50%;
+	left: 50%; */
+	/* transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%); */
+	width: 100px;
+	height: 100px;
+}
+.laptop {
+	position: absolute;
+	top: 137px;
+	left: 119px;
+	width: 340px;
+	height: 190px;
+}
+.laptop-bottom path {
+	fill: #959C9E;
+}
+.laptop-bottom rect {
+	fill: #EBEFF0;
+}
+.laptop-lid {
+	fill: #F5F7F8;
+}
+.screen-bg {
+	fill: #fff;
+	opacity: 0;
+}
+.grid {
+	opacity: 0;
+	stroke: #EBEFF0;
+	stroke-width: 2;
+}
+.chart {
+	fill: none;
+	stroke: #95C11F;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.chart:nth-child(1) {
+	stroke-dasharray: 403;
+	stroke-dashoffset: 403;
+}
+.chart:nth-child(2) {
+	stroke-dasharray: 395;
+	stroke-dashoffset: 395;
+}
+.chart:nth-child(3) {
+	stroke-dasharray: 332;
+	stroke-dashoffset: 332;
+}
+.chart:nth-child(4) {
+	stroke-dasharray: 425;
+	stroke-dashoffset: 425;
+}
+.logo {
+	opacity: 0;
+}
+.logo path:nth-child(1) {
+	fill: #95C11F;
+}
+.logo path:nth-child(2) {
+	fill: #fff;
+}
+.logo text {
+	fill: #fff;
+	font-size: 7px;
+}
+
+.text-block {
+	opacity: 0;
+	position: absolute;
+	font-weight: 600;
+}
+.text-block.big {
+	font-size: 16px;
+	padding: 6px 16px;
+}
+.text-block svg {
+	width: 32px;
+	float: left;
+}
+.text-block div {
+	float: left;
+	line-height: 32px;
+	padding-left: 5px;
+}
+.ai {
+	fill: #C64C4C;
+	color: #953939;
+	top: 49px;
+	left: 74px;
+	border-radius: 4px;
+	background-color: #FCBFBF;
+	box-shadow: 0 5px 22px -5px rgba(0, 0, 0, 0.3);
+}
+.cryptocurrency {
+	fill: #CC7825;
+	color: #995A1C;
+	top: 100px;
+	left: 342px;
+	border-radius: 4px;
+	background-color: #FFD5AB;
+	box-shadow: 0 5px 22px -5px rgba(0, 0, 0, 0.3);
+}
+.autonomous-driving {
+	fill: #69B397;
+	color: #4F8671;
+	top: 360px;
+	left: 316px;
+	border-radius: 4px;
+	background-color: #CDF3E5;
+	box-shadow: 0 5px 22px -5px rgba(0, 0, 0, 0.3);
+}
+.commodities {
+	fill: #6D9EBC;
+	color: #52778D;
+	top: 222px;
+	left: 10px;
+	border-radius: 4px;
+	background-color: #CFE8F7;
+	box-shadow: 0 5px 22px -5px rgba(0, 0, 0, 0.3);
+}
+.white-block {
+	color: #636D70;
+	border: 1px solid #F5F7F8;
+	border-radius: 4px;
+	background-color: #FFFFFF;
+	box-shadow: 0 9px 37px -12px rgba(0, 0, 0, 0.3);
+}
+.white-block.medium {
+	font-size: 14px;
+	line-height: 19px;
+	padding: 10px 19px;
+}
+.white-block.small {
+	font-size: 12px;
+	line-height: 17px;
+	padding: 8px 16px;
+}
+.day-trading {
+	top: 0;
+	left: 273px;
+}
+.robotics {
+	top: 38px;
+	left: 456px;
+}
+.emerging-markets {
+	top: 199px;
+	left: 415px;
+}
+.e-mobility {
+	top: 262px;
+	left: 441px;
+}
+.small-caps {
+	top: 360px;
+	left: 127px;
+}
+.solar {
+	top: 310px;
+	left: 27px;
+}
+.german-stocks {
+	top: 131px;
+	left: 30px;
+}
 
 /* new navbar */
 /* @import url('https://fonts.googleapis.com/css?family=Roboto');
@@ -640,4 +816,27 @@ section {
  }
 }
 
+
+/* colorful picture */
+/* :root {
+  --stop-size: calc(100%/14);
+}
+body {
+  margin: 0;
+}
+.inelegant-sky {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom, rgba(74, 114, 163, 1) 0, rgba(81, 118, 172, 1) var(--stop-size), rgba(87, 128, 186, 1) calc(var(--stop-size) * 2), rgba(98, 137, 198, 1) calc(var(--stop-size) * 3), rgba(104, 143, 202, 1) calc(var(--stop-size) * 4), rgba(112, 150, 207, 1) calc(var(--stop-size) * 5), rgba(121, 160, 212, 1) calc(var(--stop-size) * 6), rgba(132, 171, 219, 1) calc(var(--stop-size) * 7), rgba(145, 181, 225, 1) calc(var(--stop-size) * 8), rgba(158, 192, 231, 1) calc(var(--stop-size) * 9), rgba(181, 208, 234, 1) calc(var(--stop-size) * 10), rgba(212, 221, 228, 1) calc(var(--stop-size) * 11), rgba(242, 230, 217, 1) calc(var(--stop-size) * 12), rgba(252, 207, 161, 1) calc(var(--stop-size) * 13), rgba(244, 156, 113, 1) 100%);
+} */
+
+/* gradiend pic */
+/* #parallex1 {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("http://media.istockphoto.com/photos/abstract-cubes-retro-styled-colorful-background-picture-id508795172?k=6&m=508795172&s=170667a&w=0&h=uxKISA4xMNkrBCcEFhdN5mm-ZDv8LFzWUhMMmG3CNuQ=");
+  height: 50%;
+} */
 
