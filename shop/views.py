@@ -411,6 +411,7 @@ def signup(request):
 
 def index(request):
     # myuser=User1.objects.get(username=User.username)
+    # hii bro
     current_user=request.user
     i=0
     j=4
