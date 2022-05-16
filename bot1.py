@@ -2,7 +2,6 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import sqlite3
-
 conn = sqlite3.connect('db.sqlite3')
 from finta import TA
 import yfinance as yf
@@ -60,18 +59,17 @@ percentage=10
 
 # %%
 conn = sqlite3.connect('db.sqlite3')
+
+
+# %%
 c= conn.cursor()
 
 c.execute("SELECT * FROM shop_bot1")
 
 data1=c.fetchall()
+
 conn.commit()
 
-conn.close()
-
-
-# %%
-data1[1][0]
 
 
 # %%
@@ -119,8 +117,8 @@ def market_order(instrument):
         global quantity,data1
 
         ltp=ltp_price(instrument)
-        for i in range(len(data1)):
-            client=Client(data1[i][4],data1[i][5])
+        for client in name:
+
             data=client.futures_account_balance()
             percentage=data[i][3]
             for j in range(len(data)):
@@ -148,9 +146,23 @@ def market_order(instrument):
                 
                     
                     quantity=round(quantity,3))
+
+
+
             except Exception as e:
                 # bot.sendMessage(1190128536,str(e))
-                pass
+                continue
+        # conn = sqlite3.connect('db.sqlite3')
+        # c= conn.cursor()
+
+
+        
+        c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','buy','BOT1')")
+        
+        conn.commit()
+
+
 
 
     except Exception as e:
@@ -197,6 +209,13 @@ def market_order1(instrument):
                 pass
 
 
+        
+        c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','sell','BOT1')")
+        
+        conn.commit()
+
+
     except Exception as e:
         print(str(e))
 
@@ -211,37 +230,37 @@ def market_order1(instrument):
 def close_position(instrument,order_type):
     global quantity1,data1
     try:
-        for i in range(len(data1)):
-            client=Client(data1[i][4],data1[i][5])
+        for client in name:
+            orders1 = client.futures_position_information()
+
+            for order in orders1:
+                if order['symbol'] == str(instrument):
+                    try:
+                        print(order)
+                        if (float(order['positionAmt']))*1000 < 0:
+                            order1 = client.futures_create_order(
+                                symbol=str(order['symbol']),
+                                side=Client.SIDE_BUY,
+                                type=Client.ORDER_TYPE_MARKET,
+                                quantity=abs(float(order['positionAmt'])))
+
+                        if (float(order['positionAmt']))*1000 > 0:
+                            order1 = client.futures_create_order(
+                                symbol=str(order['symbol']),
+                                side=Client.SIDE_SELL,
+                                type=Client.ORDER_TYPE_MARKET,
+                                quantity=abs(float(order['positionAmt'])))
+
+                    except Exception as e:
+                        print(str(e))
 
 
+        c.execute(f"INSERT INTO shop_orders (symbol,price_in,time_in,order_type,bot) \
+      VALUES ('{(str(instrument))}',{ltp},'{str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))}','{str(order_type)}','BOT1')")
 
-            if order_type=='squareoffsell':
-               
-
-
-                order = client.futures_create_order(
-                symbol=str(instrument),
-                side=Client.SIDE_SELL,
-                type=Client.ORDER_TYPE_MARKET,
+        conn.commit()
 
 
-                quantity=round(float(quantity1[str(data1[i][0])]),3))
-
-            if order_type=='squareoffbuy':
-               
-
-
-                order = client.futures_create_order(
-                symbol=str(instrument),
-                side=Client.SIDE_BUY,
-                type=Client.ORDER_TYPE_MARKET,
-
-
-                quantity=round(float(quantity1[str(data1[i][0])]),3))
-
-
-    
     except Exception as e:
         print(str(e))
         # bot.sendMessage(1190128536,str(e))
@@ -250,6 +269,7 @@ def close_position(instrument,order_type):
 # %%
 
 def main():
+    global ltp
     conn = sqlite3.connect('db.sqlite3')
     c= conn.cursor()
 
@@ -259,7 +279,7 @@ def main():
     conn.commit()
 
     conn.close()
-    ltp=ltp_price(symbol)
+    ltp=ltp_price(symbol,name[0])
     df=candle_initial(symbol,time_frame)
     signal=""
     if position=="":
@@ -302,7 +322,20 @@ def main():
 signal=""
 position=""
 quantity1={}
+time2=time.time()
+name=[]
 while True:
+    if time.time()>time2+60*60:
+        c.execute("SELECT * FROM shop_bot1")
+        data1=c.fetchall()
+        conn.commit()
+        
+
+        for i in range(len(data1)):
+            name.append(Client(data1[i][4],data1[i][5]))
+
+        time2=time.time()
+
     times1=time.time()
     try:
 
@@ -310,6 +343,7 @@ while True:
 
     except Exception as e:
         print(str(e))
-     
 
 
+
+        
