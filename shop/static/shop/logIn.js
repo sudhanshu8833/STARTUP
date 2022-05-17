@@ -1,16 +1,11 @@
-const signInBtn = document.getElementById("signIn");
-const signUpBtn = document.getElementById("signUp");
-// const fistForm = document.getElementById("form1");
-// const secondForm = document.getElementById("form2");
+const sign_in_btn = document.querySelector("#sign-in-btn");
+const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
 
-signInBtn.addEventListener("click", () => {
-	container.classList.remove("right-panel-active");
+sign_up_btn.addEventListener("click", () => {
+  container.classList.add("sign-up-mode");
 });
 
-signUpBtn.addEventListener("click", () => {
-	container.classList.add("right-panel-active");
+sign_in_btn.addEventListener("click", () => {
+  container.classList.remove("sign-up-mode");
 });
-
-// fistForm.addEventListener("submit", (e) => e.preventDefault());
-// secondForm.addEventListener("submit", (e) => e.preventDefault());
