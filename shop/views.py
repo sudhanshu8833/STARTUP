@@ -78,11 +78,18 @@ def refer(request,bot_price):
     return redirect('index')
 
 ###################################################
-
-
-
-
-
+def key(request):
+    current_user=request.user
+    if request.method=="POST":
+        binanceapi=request.POST['api']
+        binancesecret=request.POST['secret']
+        myuser=User1.objects.get(username=current_user)
+        myuser.binance_API_keys=binanceapi
+        myuser.binance_Secret_Keys=binancesecret
+        myuser.save()
+        messages.success(request, "Successfully Added/Changed Keys")
+        return redirect('index')
+        
 def home(request):
     return render(request,"shop/home1.html")
 
@@ -165,7 +172,7 @@ def all_bots(request):
     except :
         pass
     if(buy1 is None):
-            Buy1=BOT.objects.get(title="BOT1")
+            Buy1=BOT.objects.get(bot_id=1)
             total.append(Buy1)
     buy2=None
     try:
@@ -173,7 +180,7 @@ def all_bots(request):
     except :
         pass
     if(buy2 is None):
-            Buy2=BOT.objects.get(title="BOT2")
+            Buy2=BOT.objects.get(bot_id=2)
             total.append(Buy2)
     buy3=None
     try:
@@ -181,7 +188,7 @@ def all_bots(request):
     except :
         pass
     if(buy3 is None):
-            Buy3=BOT.objects.get(title="BOT3")
+            Buy3=BOT.objects.get(bot_id=3)
             total.append(Buy3)
     buy4=None
     try:
@@ -189,7 +196,7 @@ def all_bots(request):
     except :
         pass
     if(buy4 is None):
-            Buy4=BOT.objects.get(title="BOT4")
+            Buy4=BOT.objects.get(bot_id=4)
             total.append(Buy4)
     params={'total':total}
     return render(request,"shop/all_bots.html",params)
@@ -345,10 +352,6 @@ def signup(request):
         phone=request.POST['phone']
         password=request.POST['pass1']
         confpassword=request.POST['pass2']
-        # another_referral=request.POST.get['anoreferral']
-        another_referral=request.POST['anoreferral']
-        print("************")
-        print(another_referral)
         if len(username)>10:
             messages.error(request, " Your user name must be under 10 characters")
             return redirect('signup')
@@ -359,24 +362,6 @@ def signup(request):
             messages.error(request, " Passwords do not match")
             return redirect('signup')
 
-        if another_referral!='':
-            object=None
-            try:
-                object=User1.objects.get(username=another_referral)
-
-            except:
-                pass
-            if object is not None:
-                object.referral+=1
-                object.save()
-            if object is None:
-                messages.error(request, "Referral Code is not correct")
-                return redirect('signup')
-
-        else:
-            another_referral='NONE'
-
-        # User1 = User()
         match=None
         try:
             match=User1.objects.get(email=email)
@@ -401,57 +386,62 @@ def signup(request):
         if(match):    
             messages.error(request, " This username is already registered !! ")
             return redirect('signup')
-        credit=0
         myuser = User.objects.create_user(username, email, password)
         myuser.save()
-        user = User1(username=username, email=email, password=password,phone=phone,fullname='XYZ',account_num=9999,ifsc='IFSC code',another_referral=another_referral,credit=credit,binance_API_keys='NONE',binance_Secret_Keys='NONE',angel_API_keys='NONE',angel_username='NONE',angel_password='NONE')
+        user = User1(username=username, email=email, password=password,phone=phone,fullname='XYZ',binance_API_keys='NONE',binance_Secret_Keys='NONE',angel_API_keys='NONE',angel_username='NONE',angel_password='NONE')
         messages.success(request, " Your Account has been successfully created")
         user.save()
     return render(request, "shop/login.html")
 
 def index(request):
-    # myuser=User1.objects.get(username=User.username)
     current_user=request.user
-    i=0
-    j=4
+    total=[]
+    total2=[]
     buy1=None
     try:
         buy1=BOT1.objects.get(email=current_user.email)
     except :
         pass
     if(buy1):
-        i+=1
+        Buy1=BOT.objects.get(bot_id=1)
+        total.append(Buy1)
+        total2.append(buy1)
     buy2=None
     try:
         buy2=BOT2.objects.get(email=current_user.email)
     except :
         pass
     if(buy2):
-        i+=1
+        Buy2=BOT.objects.get(bot_id=1)
+        total.append(Buy2)
+        total2.append(buy2)
     buy3=None
     try:
         buy3=BOT3.objects.get(email=current_user.email)
     except :
         pass
     if(buy3):
-        i+=1
+        Buy3=BOT.objects.get(bot_id=1)
+        total.append(Buy3)
+        total2.append(buy3)
     buy4=None
     try:
         buy4=BOT4.objects.get(email=current_user.email)
     except :
         pass
     if(buy4):
-        i+=1
-    j-=i
-    i=str(i)
-    j=str(j)
-    params={'i':i,'j':j}
+        Buy4=BOT.objects.get(bot_id=1)
+        total.append(Buy4)
+        total2.append(buy4)
+    zipped=zip(total,total2)
+    # params={'zipped':zipped}
     myuser=User1.objects.get(username=current_user)
-    params={'myuser':myuser}
+    params={'myuser':myuser,'zipped':zipped}
     return render(request,"shop/index.html",params)
 
 def handleLogin(request):
     if request.method=="POST":
+        print('hiiiiiiiii')
         loginusername=request.POST['username']
         loginpassword=request.POST['password']
         print(loginusername)
@@ -474,7 +464,7 @@ def handleLogin(request):
 def handleLogout(request):
     logout(request)
     messages.success(request, "Successfully logged out")
-    return redirect('/')
+    return redirect('signup')
 
 def withdraw(request):
 
