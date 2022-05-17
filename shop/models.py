@@ -9,9 +9,6 @@ class User1(models.Model):
     fullname=models.CharField(max_length=50,default='SOME STRING')
     binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
     binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING') 
-    angel_API_keys=models.CharField(max_length=100,default='SOME STRING')
-    angel_username=models.CharField(max_length=100,default='SOME STRING')
-    angel_password=models.CharField(max_length=100, default='SOME STRING')
 
 
 class BOT1(models.Model):
@@ -30,18 +27,16 @@ class BOT2(models.Model):
 
 
 class BOT3(models.Model):
-    angel_API_keys=models.CharField(max_length=100,default='SOME STRING')
-    username=models.CharField(max_length=100,default='SOME STRING')
-    password=models.CharField(max_length=100, default='SOME STRING') 
+    binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
+    binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING') 
     Expiry_date=models.DateField()
     email=models.EmailField(max_length=50)
     Max_loss=models.IntegerField()
 
 
 class BOT4(models.Model):
-    angel_API_keys=models.CharField(max_length=100,default='SOME STRING')
-    username=models.CharField(max_length=100,default='SOME STRING')
-    password=models.CharField(max_length=100, default='SOME STRING') 
+    binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
+    binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING')
     Expiry_date=models.DateField()
     email=models.EmailField(max_length=50)
     Max_loss=models.IntegerField()

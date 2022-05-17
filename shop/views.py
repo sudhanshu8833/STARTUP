@@ -166,6 +166,7 @@ def all_bots(request):
                 return redirect('index')
 
     total=[]
+    total2=[]
     buy1=None
     try:
         buy1=BOT1.objects.get(email=current_user.email)
@@ -173,6 +174,9 @@ def all_bots(request):
         pass
     if(buy1 is None):
             Buy1=BOT.objects.get(bot_id=1)
+            text=Buy1.description
+            main=text.split("\ ")
+            total2.append(main)
             total.append(Buy1)
     buy2=None
     try:
@@ -181,6 +185,9 @@ def all_bots(request):
         pass
     if(buy2 is None):
             Buy2=BOT.objects.get(bot_id=2)
+            text=Buy2.description
+            main=text.split("\ ")
+            total2.append(main)
             total.append(Buy2)
     buy3=None
     try:
@@ -189,6 +196,9 @@ def all_bots(request):
         pass
     if(buy3 is None):
             Buy3=BOT.objects.get(bot_id=3)
+            text=Buy3.description
+            main=text.split("\ ")
+            total2.append(main)
             total.append(Buy3)
     buy4=None
     try:
@@ -197,8 +207,14 @@ def all_bots(request):
         pass
     if(buy4 is None):
             Buy4=BOT.objects.get(bot_id=4)
+            text=Buy4.description
+            main=text.split("\ ")
+            total2.append(main)
             total.append(Buy4)
-    params={'total':total}
+    zipped=zip(total,total2)
+    
+    myuser=User1.objects.get(username=current_user)
+    params={'zipped':zipped,'myuser':myuser}
     return render(request,"shop/all_bots.html",params)
 
 def user_bots(request):
@@ -388,9 +404,11 @@ def signup(request):
             return redirect('signup')
         myuser = User.objects.create_user(username, email, password)
         myuser.save()
-        user = User1(username=username, email=email, password=password,phone=phone,fullname='XYZ',binance_API_keys='NONE',binance_Secret_Keys='NONE',angel_API_keys='NONE',angel_username='NONE',angel_password='NONE')
+        user = User1(username=username, email=email, password=password,phone=phone,fullname='XYZ',binance_API_keys='NONE',binance_Secret_Keys='NONE')
         messages.success(request, " Your Account has been successfully created")
         user.save()
+        login(request,myuser)
+        return redirect('all_bots')
     return render(request, "shop/login.html")
 
 def index(request):
@@ -463,8 +481,7 @@ def handleLogin(request):
 
 def handleLogout(request):
     logout(request)
-    messages.success(request, "Successfully logged out")
-    return redirect('signup')
+    return redirect('/')
 
 def withdraw(request):
 
