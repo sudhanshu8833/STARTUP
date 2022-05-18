@@ -16,9 +16,9 @@
     position: fixed;
     left: 0;
 } */
-path {
+/* path {
     fill: var(--clr-primary);
-}
+} */
 .wave-top {
     top: 0;
 }
