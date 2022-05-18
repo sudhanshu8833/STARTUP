@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.fields import DateField, IntegerField
+from django.contrib.auth.models import User
 
 class User1(models.Model):
     username=models.CharField(max_length=50,default='SOME STRING')
@@ -10,6 +11,10 @@ class User1(models.Model):
     binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
     binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING') 
 
+class UserOTP(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	time_st = models.DateTimeField(auto_now = True)
+	otp = models.SmallIntegerField()
 
 class BOT1(models.Model):
     binance_API_keys=models.CharField(max_length=100,default='SOME STRING')

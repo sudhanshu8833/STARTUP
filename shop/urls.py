@@ -12,8 +12,9 @@ urlpatterns = [
     path("all_bots", views.all_bots, name="all_bots"),
     path("user_bots", views.user_bots, name="user_bots"),
     path("index", views.index, name="index"),
-    path("settings", views.settings, name="settings"),
+    path("settings", views.setting, name="settings"),
     path("checkout", views.checkout, name="checkout"),
     path("handleLogout", views.handleLogout, name="handleLogout"),
     path("withdraw", views.withdraw, name="withdraw"),
+    path("resendOTP", views.resendOTP, name="resendOTP"),
 ]
