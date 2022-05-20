@@ -381,9 +381,33 @@ def checkout(request):
     return render(request,"shop/checkout.html")
 
 def bots(request):
-    products= BOT.objects.all()
-    params={'product': products}
-    return render(request,"shop/bots.html",params)
+    current_user=request.user
+    total=[]
+    total2=[]
+    Buy1=BOT.objects.get(bot_id=1)
+    text=Buy1.description
+    main=text.split("\ ")
+    total2.append(main)
+    total.append(Buy1)
+    Buy2=BOT.objects.get(bot_id=2)
+    text=Buy2.description
+    main=text.split("\ ")
+    total2.append(main)
+    total.append(Buy2)
+    Buy3=BOT.objects.get(bot_id=3)
+    text=Buy3.description
+    main=text.split("\ ")
+    total2.append(main)
+    total.append(Buy3)
+    Buy4=BOT.objects.get(bot_id=4)
+    text=Buy4.description
+    main=text.split("\ ")
+    total2.append(main)
+    total.append(Buy4)
+    zipped=zip(total,total2)
+    myuser=User1.objects.get(username=current_user)
+    params={'zipped':zipped,'myuser':myuser}
+    return render(request,"shop/bot_details.html",params)
 
 def signup(request):
     if request.method=="POST":
