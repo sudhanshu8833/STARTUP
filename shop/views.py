@@ -141,6 +141,9 @@ def tradingview(request):
         print(received_json_data)
         bot.sendMessage(1039725953, str(received_json_data))
         return HttpResponse(received_json_data)
+
+
+        
     # return HttpResponse(str(request))
 
 

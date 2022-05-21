@@ -2,7 +2,7 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import sqlite3
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect('../db.sqlite3')
 from finta import TA
 import yfinance as yf
 import requests
@@ -58,7 +58,7 @@ percentage=10
 
 
 # %%
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect('../db.sqlite3')
 
 
 # %%
@@ -317,6 +317,14 @@ position=""
 quantity1={}
 time2=time.time()
 name=[]
+c.execute("SELECT * FROM shop_bot1")
+data1=c.fetchall()
+conn.commit()
+
+
+
+for i in range(len(data1)):
+    name.append(Client(data1[i][4],data1[i][5]))
 while True:
     if time.time()>time2+60*60:
         c.execute("SELECT * FROM shop_bot1")

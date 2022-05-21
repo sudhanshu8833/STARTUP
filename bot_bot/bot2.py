@@ -2,7 +2,7 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import sqlite3
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect('../db.sqlite3')
 from finta import TA
 import yfinance as yf
 import requests
@@ -53,12 +53,12 @@ import urllib
 symbol='BTCUSDT'
 take_profit=2
 stop_loss=1
-time_frame='1h'
+time_frame='30m'
 max_loss=10
 
 
 # %%
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect('../db.sqlite3')
 
 
 # %%
@@ -316,6 +316,16 @@ position=""
 quantity1={}
 time2=time.time()
 name=[]
+
+c.execute("SELECT * FROM shop_bot2")
+data1=c.fetchall()
+conn.commit()
+
+
+for i in range(len(data1)):
+    name.append(Client(data1[i][4],data1[i][5]))
+
+
 while True:
     if time.time()>time2+60*60:
         c.execute("SELECT * FROM shop_bot2")
