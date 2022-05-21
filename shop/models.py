@@ -59,3 +59,7 @@ class orders(models.Model):
     time_in = models.DateTimeField()
     order_type = models.CharField(max_length=20)
     bot = models.CharField(max_length=20)
+
+
+
+
