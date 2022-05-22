@@ -119,6 +119,9 @@ def home(request):
     total2.append(main)
     total.append(Buy4)
     zipped = zip(total, total2)
+
+
+    
     params = {'zipped': zipped}
     return render(request, "shop/home1.html", params)
 
