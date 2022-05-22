@@ -20,4 +20,5 @@ urlpatterns = [
     path("handleLogout", views.handleLogout, name="handleLogout"),
     path("withdraw", views.withdraw, name="withdraw"),
     path("resendOTP", views.resendOTP, name="resendOTP"),
+    path("key", views.key, name="key"),
 ]

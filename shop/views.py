@@ -133,7 +133,8 @@ def about(request):
 def contact(request):
     if request.method == "POST":
         # print(request.POST)
-        bot.sendMessage(1039725953, str(request.POST['hello']))
+        # bot.sendMessage(1039725953, str(request.POST['hello']))
+        pass
     return render(request, "shop/contact.html")
 
 

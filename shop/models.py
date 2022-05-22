@@ -10,6 +10,7 @@ class User1(models.Model):
     fullname=models.CharField(max_length=50,default='SOME STRING')
     binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
     binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING') 
+    free=models.IntegerField(default=1)
 
 class UserOTP(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)

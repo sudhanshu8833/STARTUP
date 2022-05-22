@@ -6,7 +6,7 @@ from paytm import checksum
 from shop.models import User1,BOT,BOT4,BOT3,BOT1,BOT2
 import time,datetime
 MERCHANT_KEY='x&Iog9XRoBP6r6hB'
-amount=0
+idd=0
 
 
 def payments(request):
@@ -16,9 +16,21 @@ def payments(request):
 
 def payment_1(request):
     if request.method=="POST":
-        title=request.POST['amount']
-        bots=BOT.objects.get(title=title)
+        titlee=request.POST['amount']
+        bots=BOT.objects.get(title=titlee)
+        if bots.bot_id==1:
+            current_user=request.user
+            actual_user=User1.objects.get(username=current_user)
+            if actual_user.free == 1:
+                today=datetime.datetime.now()
+                buy=BOT1(binance_API_keys=actual_user.binance_API_keys,binance_Secret_Keys=actual_user.binance_Secret_Keys,Expiry_date=today,email=current_user.email,Max_loss=0)
+                buy.save()
+                actual_user.free=2
+                actual_user.save()
+                messages.success(request, f"Congratulations! Free trial Started ")
+                return redirect('index')
         amount=bots.Price
+        idd=bots.bot_id
     param_dict={
 
             'MID': 'luxrst14122371794696',
@@ -54,7 +66,7 @@ def handlerequest(request):
         if response_dict['RESPCODE']=='01':
             current_user=request.user
             actual_user=User1.objects.get(username=current_user)
-            obj=BOT.objects.get(Price=amount)
+            obj=BOT.objects.get(bot_id=idd)
             if(obj.bot_id==1):
                     today=datetime.datetime.now()
                     buy=BOT1(binance_API_keys=actual_user.binance_API_keys,binance_Secret_Keys=actual_user.binance_Secret_Keys,Expiry_date=today,email=current_user.email,Max_loss=0)
