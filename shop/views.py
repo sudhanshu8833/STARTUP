@@ -126,8 +126,8 @@ def home(request):
     return render(request, "shop/home1.html", params)
 
 
-def about(request):
-    return render(request, "shop/about.html")
+def terms(request):
+    return render(request, "shop/terms.html")
 
 
 def contact(request):

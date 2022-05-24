@@ -66,7 +66,7 @@
         <input type="submit" value="Login" class="btn solid" />
         <button type="submit" value="Resend OTP" id="resendOTPmess" onclick="ReSendOTP('{{usr.username}}', 'resendOTPmess')" class="btn solid">RESEND</button>
       </form>
-      <form action="/signup" class="sign-up-form" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">{% csrf_token %}
+      <form action="/signup" class="sign-up-form" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions'); return false; }">{% csrf_token %}
         <h2 class="title">Sign up</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
@@ -89,7 +89,7 @@
           <input type="password" name="pass2" placeholder="Confirm Password" />
         </div>
         <div >
-            <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the Terms and Conditions and Privacy Policy
+            <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a href="/terms">Terms and Conditions</a>
         </div>
         <input type="submit" class="btn" value="Sign up" />
       </form>
@@ -101,8 +101,8 @@
       <div class="content">
         <h3>New here ?</h3>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-          ex ratione. Aliquid!
+          Signup to Get the cutting edge technology
+          in Retail automation
         </p>
       </div>
       <img src="{% static 'shop/data/img/log.svg' %}" class="image" alt="" />
@@ -111,8 +111,7 @@
       <div class="content">
         <h3>One of us ?</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          laboriosam ad deleniti.
+          Let Go into our dashboard
         </p>
       </div>
       <img src="{% static 'shop/data/img/register.svg' %}" class="image" alt="" />
@@ -137,7 +136,7 @@
             </div>
             <input type="submit" value="Login" class="btn solid" />
           </form>
-          <form action="/signup" class="sign-up-form" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">{% csrf_token %}
+          <form action="/signup" class="sign-up-form" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions'); return false; }">{% csrf_token %}
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -160,7 +159,7 @@
               <input type="password" name="pass2" placeholder="Confirm Password" />
             </div>
             <div >
-                <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the Terms and Conditions and Privacy Policy
+                <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a href="/terms">Terms and Conditions</a>
             </div>
             <input type="submit" class="btn" value="Sign up" />
           </form>
@@ -172,8 +171,8 @@
           <div class="content">
             <h3>New here ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Get Your self signup for the most cutting
+              edge technology in automated industry
             </p>
             <button class="btn transparent" id="sign-up-btn">
               Sign up
@@ -188,8 +187,7 @@
           <div class="content">
             <h3>One of us ?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+              Let's go to our Dashboard
             </p>
             <button class="btn transparent" id="sign-in-btn">
               Sign in
