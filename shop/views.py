@@ -147,10 +147,6 @@ def tradingview(request):
         return HttpResponse(received_json_data)
 
 
-        
-    # return HttpResponse(str(request))
-
-
 
 def error(request):
     return render(request, "shop/error.html")
@@ -175,6 +171,8 @@ def all_bots(request):
                     request, f"Congratulations! You purchased {obj.title} for Rs {obj.Price}")
                 refer(request, obj.Price)
                 return redirect('index')
+
+                
             else:
                 messages.error(
                     request, f"Unfortunately, you don't have enough money to purchase {obj.title}!")
@@ -184,6 +182,7 @@ def all_bots(request):
                 today = datetime.datetime.now()
                 buy = BOT2(binance_API_keys=actual_user.binance_API_keys, binance_Secret_Keys=actual_user.binance_Secret_Keys,
                            Expiry_date=today, email=current_user.email, Max_loss=0)
+
                 buy.save()
                 actual_user.credit -= obj.Price
                 actual_user.security += obj.price/6

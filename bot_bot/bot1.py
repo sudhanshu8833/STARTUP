@@ -2,6 +2,11 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import sqlite3
+
+
+
+
+
 conn = sqlite3.connect('../db.sqlite3')
 from finta import TA
 import yfinance as yf
@@ -115,7 +120,7 @@ def market_order(instrument):
 
     try:
         global quantity,data1
-
+ 
         ltp=ltp_price(instrument)
         for client in name:
 
