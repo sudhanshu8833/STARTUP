@@ -195,6 +195,7 @@ def all_bots(request):
                 messages.error(
                     request, f"Unfortunately, you don't have enough money to purchase {obj.title}!")
                 return redirect('index')
+
         if(buy_item == 'BOT3'):
             if (actual_user.credit > obj.Price):
                 today = datetime.datetime.now()
@@ -238,10 +239,17 @@ def all_bots(request):
     except:
         pass
     if(buy1 is None):
+
         Buy1 = BOT.objects.get(bot_id=1)
         text = Buy1.description
         main = text.split("\ ")
         total2.append(main)
+
+
+        actual_user=User1.objects.get(username=current_user)
+        if actual_user.free==1:
+            Buy1.Price=0
+
         total.append(Buy1)
     buy2 = None
     try:
