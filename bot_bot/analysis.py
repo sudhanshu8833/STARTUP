@@ -61,9 +61,13 @@ while True:
             symbols_used = symbols_used_fun(positions)
             winning = winnings(positions)
             profits = profit(positions)
-
+            
+            # print(data2)
             for i in range(len(data2)):
-
+                profits[i]=round(profits[i],2)
+                winning[i]=round(winning[i],2)
+                max_drawdown[i]=round(max_drawdown[i],2)
+                total_trades[i]=int(total_trades[i])
                 c.execute(
                     f"UPDATE shop_bot SET profits = {profits[i]} WHERE bot_id = {i+1};")
                 c.execute(
@@ -118,9 +122,11 @@ while True:
                 for number in bots_owned:
                     value = float(data4[number][0])+profit
                     profit = value
+
+                profit=round(profit,2)
                 c.execute(
                     f"UPDATE shop_user1 SET profits = {profit} WHERE email = '{str(data[i][0])}';")
-
+                conn.commit()
             ###################################################
 
                 c.execute("SELECT winning FROM shop_bot")
@@ -128,12 +134,13 @@ while True:
 
                 winning = 0
                 for number in bots_owned:
-                    value = float(data4[number][0])+profit
+                    value = float(data4[number][0])+winning
                     winning = value
                 winning = winning/len(bots_owned)
+                winning=round(winning,2)
                 c.execute(
-                    f"UPDATE shop_user1 SET winning = {profit} WHERE email = '{str(data[i][0])}';")
-
+                    f"UPDATE shop_user1 SET winning = {winning} WHERE email = '{str(data[i][0])}';")
+                conn.commit()
             ##################################################
                 positions = order_to_position(data1)
                 symbols_used = symbols_used_fun(positions)
@@ -158,6 +165,7 @@ while True:
                     diction[k] = sum(dic[k])
                 c.execute(
                     f"UPDATE shop_user1 SET symbols_used = '{string(diction)}' WHERE email = '{str(data[i][0])}';")
+                conn.commit()
             print('completed')
             # times=time.time()
 

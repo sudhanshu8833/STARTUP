@@ -6,7 +6,7 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.http import HttpResponse
-from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP
+from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP,orders
 import random
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,7 +15,7 @@ import pandas as pd
 import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
-
+from django.forms.models import model_to_dict
 
 ###################################################
 def refer(request, bot_price):
@@ -95,6 +95,23 @@ def key(request):
         return redirect('index')
 
 
+def terms(request):
+    return render(request, "shop/terms.html")
+
+@csrf_exempt
+def tradingview(request):
+    if request.method == "POST":
+        received_json_data = json.loads(request.body.decode("utf-8"))
+        # print(received_json_data)
+
+        if received_json_data['passphrase']=="isjdhfkjsdhfiowqeu12908749012kajsdnksjf":
+            order_type=received_json_data['order_type']
+            symbol=received_json_data['symbol']
+            quantity=received_json_data['quantity']
+
+            bot.sendMessage(1039725953, str(received_json_data))
+            return HttpResponse(received_json_data)
+
 def home(request):
     total = []
     total2 = []
@@ -126,8 +143,8 @@ def home(request):
     return render(request, "shop/home1.html", params)
 
 
-def terms(request):
-    return render(request, "shop/terms.html")
+def about(request):
+    return render(request, "shop/about.html")
 
 
 def contact(request):
@@ -556,17 +573,20 @@ def index(request):
     except:
         pass
     if(buy1):
-        Buy1 = BOT.objects.get(bot_id=1)
-        total.append(Buy1)
+        Buy1 = orders.objects.all().filter(bot=1)
+        for i in Buy1:
+            total.append(i)
         total2.append(buy1)
+        print(buy1)
     buy2 = None
     try:
         buy2 = BOT2.objects.get(email=current_user.email)
     except:
         pass
     if(buy2):
-        Buy2 = BOT.objects.get(bot_id=1)
-        total.append(Buy2)
+        Buy2 = orders.objects.all().filter(bot=2)
+        for i in Buy2:
+            total.append(i)
         total2.append(buy2)
     buy3 = None
     try:
@@ -574,8 +594,9 @@ def index(request):
     except:
         pass
     if(buy3):
-        Buy3 = BOT.objects.get(bot_id=1)
-        total.append(Buy3)
+        Buy3 = orders.objects.all().filter(bot=3)
+        for i in Buy3:
+            total.append(i)
         total2.append(buy3)
     buy4 = None
     try:
@@ -583,13 +604,15 @@ def index(request):
     except:
         pass
     if(buy4):
-        Buy4 = BOT.objects.get(bot_id=1)
-        total.append(Buy4)
+        Buy4 = orders.objects.all().filter(bot=4)
+        for i in Buy4:
+            total.append(i)
         total2.append(buy4)
-    zipped = zip(total, total2)
+    
     # params={'zipped':zipped}
     myuser = User1.objects.get(username=current_user)
-    params = {'myuser': myuser, 'zipped': zipped}
+    print(total)
+    params = {'myuser': myuser, 'total':total}
     return render(request, "shop/index.html", params)
 
 
