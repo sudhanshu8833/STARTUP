@@ -1,3 +1,4 @@
+from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,  login, logout
@@ -6,7 +7,7 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.http import HttpResponse
-from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP,orders
+from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders
 import random
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,9 +16,12 @@ import pandas as pd
 import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
-from django.forms.models import model_to_dict
 
+from kucoin.client import Trade
+client1 = Trade(key='628f9f8a43ddbc0001e243d2', secret='6c138913-3815-486e-bb97-c6c38c164af1', passphrase='@Support123', is_sandbox=False, url='')
 ###################################################
+
+
 def refer(request, bot_price):
 
     person_a = 20
@@ -98,6 +102,9 @@ def key(request):
 def terms(request):
     return render(request, "shop/terms.html")
 
+
+
+
 @csrf_exempt
 def tradingview(request):
     if request.method == "POST":
@@ -108,9 +115,10 @@ def tradingview(request):
             order_type=received_json_data['order_type']
             symbol=received_json_data['symbol']
             quantity=received_json_data['quantity']
-
+            
             bot.sendMessage(1039725953, str(received_json_data))
             return HttpResponse(received_json_data)
+
 
 def home(request):
     total = []
@@ -137,8 +145,6 @@ def home(request):
     total.append(Buy4)
     zipped = zip(total, total2)
 
-
-    
     params = {'zipped': zipped}
     return render(request, "shop/home1.html", params)
 
@@ -162,7 +168,6 @@ def tradingview(request):
         print(received_json_data)
         bot.sendMessage(1039725953, str(received_json_data))
         return HttpResponse(received_json_data)
-
 
 
 def error(request):
@@ -189,7 +194,6 @@ def all_bots(request):
                 refer(request, obj.Price)
                 return redirect('index')
 
-                
             else:
                 messages.error(
                     request, f"Unfortunately, you don't have enough money to purchase {obj.title}!")
@@ -262,10 +266,9 @@ def all_bots(request):
         main = text.split("\ ")
         total2.append(main)
 
-
-        actual_user=User1.objects.get(username=current_user)
-        if actual_user.free==1:
-            Buy1.Price=0
+        actual_user = User1.objects.get(username=current_user)
+        if actual_user.free == 1:
+            Buy1.Price = 0
 
         total.append(Buy1)
     buy2 = None
@@ -383,6 +386,11 @@ def user_bots(request):
     params = {'zipped': zipped}
     return render(request, "shop/user_bots.html", params)
 
+def add_api(request):
+    current_user = request.user
+    myuser = User1.objects.get(username=current_user)
+    params = {'myuser': myuser}
+    return render(request, "shop/add_api_credentials.html",params)
 
 def setting(request):
     current_user = request.user
@@ -608,11 +616,11 @@ def index(request):
         for i in Buy4:
             total.append(i)
         total2.append(buy4)
-    
+
     # params={'zipped':zipped}
     myuser = User1.objects.get(username=current_user)
     print(total)
-    params = {'myuser': myuser, 'total':total}
+    params = {'myuser': myuser, 'total': total}
     return render(request, "shop/index.html", params)
 
 
