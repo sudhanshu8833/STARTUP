@@ -1,3 +1,4 @@
+from shop.helpful_scripts.tradingview_broker import tradingview_to_brkr
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -17,8 +18,17 @@ import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
 
-from kucoin.client import Trade
-client1 = Trade(key='628f9f8a43ddbc0001e243d2', secret='6c138913-3815-486e-bb97-c6c38c164af1', passphrase='@Support123', is_sandbox=False, url='')
+from .helpful_scripts.object import make_object
+# from kucoin.client import Market
+
+
+from binance.client import Client
+client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW",
+                "v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
+
+info = client.futures_exchange_info()
+# from kucoin.client import Trade
+# client1 = Trade(key='628f9f8a43ddbc0001e243d2', secret='6c138913-3815-486e-bb97-c6c38c164af1', passphrase='@Support123', is_sandbox=False, url='')
 ###################################################
 
 
@@ -94,7 +104,10 @@ def key(request):
         myuser = User1.objects.get(username=current_user)
         myuser.binance_API_keys = binanceapi
         myuser.binance_Secret_Keys = binancesecret
+
         myuser.save()
+        make_object(str(binanceapi),str(binancesecret),str(myuser.username))
+
         messages.success(request, "Successfully Added/Changed Keys")
         return redirect('index')
 
@@ -109,15 +122,26 @@ def terms(request):
 def tradingview(request):
     if request.method == "POST":
         received_json_data = json.loads(request.body.decode("utf-8"))
+        pp=received_json_data['PP']
         # print(received_json_data)
+        myuser = User1.objects.get(passphrase=pp)
+        with open("./helpful_scripts/keys.json") as json_data_file:
+            data3 = json.load(json_data_file)  
+        client=data3[str(myuser.username)]
+        tradingview_to_brkr(received_json_data,client,info,myuser.username)
+        return HttpResponse(received_json_data)
 
-        if received_json_data['passphrase']=="isjdhfkjsdhfiowqeu12908749012kajsdnksjf":
-            order_type=received_json_data['order_type']
-            symbol=received_json_data['symbol']
-            quantity=received_json_data['quantity']
+
+    return HttpResponse("send a valid post request please")
+        # if received_json_data['BRK']=="BINANCE":
             
-            bot.sendMessage(1039725953, str(received_json_data))
-            return HttpResponse(received_json_data)
+
+        #     order_type=received_json_data['OT']
+        #     symbol=received_json_data['SYM']
+        #     quantity=received_json_data['Q']
+            
+            # bot.sendMessage(1039725953, str(received_json_data))
+            # 
 
 
 def home(request):
@@ -161,13 +185,6 @@ def contact(request):
     return render(request, "shop/contact.html")
 
 
-@csrf_exempt
-def tradingview(request):
-    if request.method == "POST":
-        received_json_data = json.loads(request.body.decode("utf-8"))
-        print(received_json_data)
-        bot.sendMessage(1039725953, str(received_json_data))
-        return HttpResponse(received_json_data)
 
 
 def error(request):
