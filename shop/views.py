@@ -17,8 +17,8 @@ import pandas as pd
 import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
-
-from .helpful_scripts.object import make_object
+import string
+from .helpful_scripts.object import *
 # from kucoin.client import Market
 
 
@@ -99,6 +99,7 @@ def refer(request, bot_price):
 def key(request):
     current_user = request.user
     if request.method == "POST":
+
         binanceapi = request.POST['api']
         binancesecret = request.POST['secret']
         myuser = User1.objects.get(username=current_user)
@@ -106,7 +107,7 @@ def key(request):
         myuser.binance_Secret_Keys = binancesecret
 
         myuser.save()
-        make_object(str(binanceapi),str(binancesecret),str(myuser.username))
+        make_object_binance(str(binanceapi),str(binancesecret),str(myuser.username))
 
         messages.success(request, "Successfully Added/Changed Keys")
         return redirect('index')
@@ -125,10 +126,9 @@ def tradingview(request):
         pp=received_json_data['PP']
         # print(received_json_data)
         myuser = User1.objects.get(passphrase=pp)
-        with open("./helpful_scripts/keys.json") as json_data_file:
-            data3 = json.load(json_data_file)  
-        client=data3[str(myuser.username)]
-        tradingview_to_brkr(received_json_data,client,info,myuser.username)
+        tradingview_to_brkr(myuser,received_json_data,info)
+
+
         return HttpResponse(received_json_data)
 
 
@@ -571,8 +571,22 @@ def signup(request):
         myuser = User.objects.create_user(username, email, password)
         myuser.is_active = False
         myuser.save()
-        user = User1(username=username, email=email, password=password, phone=phone,
-                     fullname='XYZ', binance_API_keys='NONE', binance_Secret_Keys='NONE')
+
+        chars = string.ascii_letters
+        size = 20
+
+        user = User1(username=username, 
+                        email=email,
+                         password=password, 
+                         phone=phone,
+                        fullname='XYZ', 
+                        binance_API_keys='NONE', 
+                        binance_Secret_Keys='NONE'
+                        ,alpaca_api_keys="NONE",
+                        alpaca_secret_keys="NONE",
+                        alpaca_base_url="https://app.alpaca.markets"
+                     , passphrase=random_string_generator(size, chars))
+
         user.save()
         usr_otp = random.randint(100000, 999999)
         UserOTP.objects.create(user=myuser, otp=usr_otp)

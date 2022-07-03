@@ -22,9 +22,14 @@ class User1(models.Model):
     size = 20
     passphrase=models.CharField(max_length=50,default=random_string_generator(size, chars))
 
-
+    # binance api keys
     binance_API_keys=models.CharField(max_length=100,default='SOME STRING')
     binance_Secret_Keys=models.CharField(max_length=100,default='SOME STRING') 
+
+    # alpaca api keys
+    alpaca_api_keys=models.CharField(max_length=100,default='SOME STRING')
+    alpaca_secret_keys=models.CharField(max_length=100,default='SOME STRING')
+    alpaca_base_url=models.CharField(max_length=100,default='https://app.alpaca.markets')
 
     free=models.IntegerField(default=1)
     profits=models.FloatField(default=0)
@@ -103,3 +108,5 @@ class tradingview_orders(models.Model):
     time_in = models.FloatField()
     order_type = models.CharField(max_length=20)
     transaction_type = models.CharField(max_length=20)
+    broker = models.CharField(max_length=20)
+    
