@@ -99,7 +99,7 @@ def send_order(recieved_data,client,quan,price,info,username):
         return order1
     except Exception as e:
         print(str(e))
-    
+
 
 def tradingview_to_binance(recieved_data,client,info,username):
 

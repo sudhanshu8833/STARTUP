@@ -1,18 +1,12 @@
 from django.http import response
 from requests import models
-from binance.client import Client
-from binance.enums import *
+
 from shop.models import tradingview_orders
 import time
 import requests
 import json
 
-def ltp_price(instrument,client):
-    prices = client.get_all_tickers()
-    for i in range(len(prices)):
-        if prices[i]['symbol'] == str(instrument):
 
-            return float(prices[i]['price'])
 
 
 
@@ -44,6 +38,9 @@ def send_order(recieved_data,client,quan,price,username):
 
         ORDERS_URL = "{}/v2/orders".format(username.alpaca_base_url)
         HEADERS = {'APCA-API-KEY-ID': username.alpaca_api_key, 'APCA-API-SECRET-KEY': username.alpaca_secret_key}
+
+
+        
         if recieved_data['TT']=='MARKET':
             data = {
             "symbol": str(symbol),
@@ -97,10 +94,10 @@ def send_order(recieved_data,client,quan,price,username):
         print(str(e))
     
 
-def tradingview_to_alpaca(recieved_data,username):
+def tradingview_to_alpaca(recieved_data,client,username):
 
     price=recieved_data['PRC']
-    quan=calculate_quantity(recieved_data,price)
+    quan=calculate_quantity(recieved_data,price,client)
     send_order(recieved_data, quan,price,username)
         
         

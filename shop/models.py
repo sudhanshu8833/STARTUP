@@ -31,6 +31,13 @@ class User1(models.Model):
     alpaca_secret_keys=models.CharField(max_length=100,default='SOME STRING')
     alpaca_base_url=models.CharField(max_length=100,default='https://app.alpaca.markets')
 
+    # kucoin api keys
+
+    kucoin_api_keys=models.CharField(max_length=100,default='SOME STRING')
+    kucoin_secret_keys=models.CharField(max_length=100,default='SOME STRING')
+    kucoin_password=models.CharField(max_length=100,default='NONE')
+
+
     free=models.IntegerField(default=1)
     profits=models.FloatField(default=0)
     symbols_used=models.CharField(max_length=80,default="{'BTCUSDT': 100, 'BNBUSDT': 0, 'SOLUSDT': 0, 'BNBUSDT': 0}")
@@ -108,5 +115,4 @@ class tradingview_orders(models.Model):
     time_in = models.FloatField()
     order_type = models.CharField(max_length=20)
     transaction_type = models.CharField(max_length=20)
-    broker = models.CharField(max_length=20)
-    
+    broker = models.CharField(max_length=20,default="NONE")

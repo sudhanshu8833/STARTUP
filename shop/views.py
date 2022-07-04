@@ -99,15 +99,57 @@ def refer(request, bot_price):
 def key(request):
     current_user = request.user
     if request.method == "POST":
+        brokerr=request.POST['broker']
+        if brokerr=="binance":
+            binanceapi = request.POST['api']
+            binancesecret = request.POST['secret']
+            
+            myuser = User1.objects.get(username=current_user)
 
-        binanceapi = request.POST['api']
-        binancesecret = request.POST['secret']
-        myuser = User1.objects.get(username=current_user)
-        myuser.binance_API_keys = binanceapi
-        myuser.binance_Secret_Keys = binancesecret
+            
 
-        myuser.save()
-        make_object_binance(str(binanceapi),str(binancesecret),str(myuser.username))
+            myuser.binance_API_keys = binanceapi
+            myuser.binance_Secret_Keys = binancesecret
+            myuser.save()
+            make_object_binance(str(binanceapi),str(binancesecret),str(myuser.username))
+            messages.success(request, "Successfully Added/Changed Binance Keys")
+            return redirect('index')
+
+        elif brokerr=="alpaca":
+            alpacaapi = request.POST['api']
+            alpacasecret = request.POST['secret']
+            alpacatype=request.POST['optradio']
+            if alpacatype=="paper":
+                uri="https://paper-api.alpaca.markets"
+
+            else:
+                uri="https://app.alpaca.markets"
+            myuser = User1.objects.get(username=current_user)
+
+            make_object_alpaca(alpacaapi,alpacasecret,uri,myuser.username)
+
+            myuser.alpaca_api_keys = alpacaapi
+            myuser.alpaca_secret_keys = alpacasecret
+            myuser.alpaca_base_url=uri
+            myuser.save()
+            messages.success(request, "Successfully Added/Changed Alpaca Keys")
+            return redirect('index')
+
+        elif brokerr=="kucoin":
+            kucoinapi = request.POST['api']
+            kucoinsecret = request.POST['secret']
+            password=request.POST['password']
+            myuser = User1.objects.get(username=current_user)
+
+            make_object_kucoin(kucoinapi,kucoinsecret,password,myuser.username)
+
+            myuser.kucoin_api_keys = kucoinapi
+            myuser.kucoin_secret_keys = kucoinsecret
+            myuser.kucoin_password=password
+            myuser.save()
+            messages.success(request, "Successfully Added/Changed Alpaca Keys")
+            return redirect('index')
+
 
         messages.success(request, "Successfully Added/Changed Keys")
         return redirect('index')
@@ -127,7 +169,7 @@ def tradingview(request):
         # print(received_json_data)
         myuser = User1.objects.get(passphrase=pp)
         tradingview_to_brkr(myuser,received_json_data,info)
-
+        
 
         return HttpResponse(received_json_data)
 

@@ -6,7 +6,7 @@ import time
 import json
 from .binance1 import *
 from .alpaca1 import *
-
+from .kucoin1 import *
 
 
 
@@ -28,6 +28,11 @@ def tradingview_to_brkr(myuser,recieved_data,info):
         tradingview_to_alpaca(recieved_data,client,myuser)
 
 
+    if "KUCOIN" in recieved_data['BRK']:
 
+        with open("./helpful_scripts/keys.json") as json_data_file:
+            data3 = json.load(json_data_file)  
+        client=data3["KUCOIN"][str(myuser.username)]
+        tradingview_to_kucoin(recieved_data,client,myuser)
 
 
