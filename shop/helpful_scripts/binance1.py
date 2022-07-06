@@ -90,11 +90,11 @@ def send_order(recieved_data,client,quan,price,info,username):
                             price=limit_price)
                             
         if recieved_data['TT']=='LIMIT':
-            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT")
+            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT",quantity=quantity)
             p.save()
 
         if recieved_data['TT']=='MARKET':
-            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET")
+            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET",quantity=quantity)
             p.save()
         return order1
     except Exception as e:

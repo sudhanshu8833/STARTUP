@@ -1,3 +1,4 @@
+# %%
 from shop.helpful_scripts.tradingview_broker import tradingview_to_brkr
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
@@ -20,7 +21,6 @@ bot.getMe()
 import string
 from .helpful_scripts.object import *
 # from kucoin.client import Market
-
 
 from binance.client import Client
 client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW",
@@ -52,7 +52,7 @@ def refer(request, bot_price):
     refer_1_object.credit += person_a*bot_price/100
     refer_1_object.save()
 
-# 55555555555555555
+
     refer_2 = refer_1_object.another_referral
 
     if refer_2 == 'NONE':
@@ -62,7 +62,7 @@ def refer(request, bot_price):
     refer_2_object.save()
 
 
-#    nnnnnn
+
     refer_3 = refer_2_object.another_referral
 
     if refer_3 == 'NONE':
@@ -72,7 +72,7 @@ def refer(request, bot_price):
     refer_3_object.save()
 
     refer_4 = refer_3_object.another_referral
-# nnnnnnnnnnnnnn
+
 
     if refer_4 == 'NONE':
         return redirect('index')
@@ -81,7 +81,7 @@ def refer(request, bot_price):
     refer_4_object.save()
 
 
-# mnmmmmmmmmmmmm
+
 
     refer_5 = refer_4_object.another_referral
 
@@ -100,6 +100,7 @@ def key(request):
     current_user = request.user
     if request.method == "POST":
         brokerr=request.POST['broker']
+        print("#####################")
         if brokerr=="binance":
             binanceapi = request.POST['api']
             binancesecret = request.POST['secret']
@@ -111,7 +112,12 @@ def key(request):
             myuser.binance_API_keys = binanceapi
             myuser.binance_Secret_Keys = binancesecret
             myuser.save()
-            make_object_binance(str(binanceapi),str(binancesecret),str(myuser.username))
+
+
+            # make_object_binance(str(binanceapi),str(binancesecret),str(myuser.username))
+
+
+
             messages.success(request, "Successfully Added/Changed Binance Keys")
             return redirect('index')
 
@@ -126,7 +132,7 @@ def key(request):
                 uri="https://app.alpaca.markets"
             myuser = User1.objects.get(username=current_user)
 
-            make_object_alpaca(alpacaapi,alpacasecret,uri,myuser.username)
+            # make_object_alpaca(alpacaapi,alpacasecret,uri,myuser.username)
 
             myuser.alpaca_api_keys = alpacaapi
             myuser.alpaca_secret_keys = alpacasecret
@@ -141,7 +147,7 @@ def key(request):
             password=request.POST['password']
             myuser = User1.objects.get(username=current_user)
 
-            make_object_kucoin(kucoinapi,kucoinsecret,password,myuser.username)
+            # make_object_kucoin(kucoinapi,kucoinsecret,password,myuser.username)
 
             myuser.kucoin_api_keys = kucoinapi
             myuser.kucoin_secret_keys = kucoinsecret
@@ -156,6 +162,7 @@ def key(request):
 
 
 def terms(request):
+
     return render(request, "shop/terms.html")
 
 
@@ -167,7 +174,10 @@ def tradingview(request):
         received_json_data = json.loads(request.body.decode("utf-8"))
         pp=received_json_data['PP']
         # print(received_json_data)
-        myuser = User1.objects.get(passphrase=pp)
+        try:
+            myuser = User1.objects.get(passphrase=pp)
+        except:
+            return HttpResponse("Please send a valid Passphrase, following passphrase doesn't belong to anyone")
         tradingview_to_brkr(myuser,received_json_data,info)
         
 
@@ -782,3 +792,5 @@ def resendOTP(request):
             )
             return HttpResponse("Resend")
     return HttpResponse("Can't Send")
+
+# %%

@@ -116,3 +116,15 @@ class tradingview_orders(models.Model):
     order_type = models.CharField(max_length=20)
     transaction_type = models.CharField(max_length=20)
     broker = models.CharField(max_length=20,default="NONE")
+    quantity= models.FloatField(default=0)
+
+class dashboard_analysis(models.Model):
+    username= models.CharField(max_length=20)
+    symbol = models.CharField(max_length=20)
+    Price_in = models.FloatField()
+    time_in = models.FloatField()
+    order_type = models.CharField(max_length=20)
+    transaction_type = models.CharField(max_length=20)
+    broker = models.CharField(max_length=20,default="NONE")
+    quantity= models.FloatField(default=0)
+

@@ -37,7 +37,7 @@ def send_order(recieved_data,client,quan,price,username):
         quantity=quan
 
         ORDERS_URL = "{}/v2/orders".format(username.alpaca_base_url)
-        HEADERS = {'APCA-API-KEY-ID': username.alpaca_api_key, 'APCA-API-SECRET-KEY': username.alpaca_secret_key}
+        HEADERS = {'APCA-API-KEY-ID': username.alpaca_api_keys, 'APCA-API-SECRET-KEY': username.alpaca_secret_keys}
 
 
         
@@ -47,7 +47,7 @@ def send_order(recieved_data,client,quan,price,username):
             "qty": quan,
             "side": order_type.lower(),
             "type": "market",
-            "time_in_force": recieved_data['TIF'],
+            "time_in_force": recieved_data['TIF'].lower(),
             "order_class": "simple"
             # "take_profit": {
             # "limit_price": data['close'] * 1.05
@@ -57,7 +57,8 @@ def send_order(recieved_data,client,quan,price,username):
             # }
             }
             r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
-
+            response=json.loads(r.content)
+            print(response)
 
         if recieved_data['TT']=='LIMIT':
             limit_price=price*(1+int(recieved_data['LIMIT']))
@@ -68,7 +69,7 @@ def send_order(recieved_data,client,quan,price,username):
             "qty": quan,
             "side": order_type.lower(),
             "type": "limit",
-            "time_in_force": recieved_data['TIF'],
+            "time_in_force": recieved_data['TIF'].lower(),
             "order_class": "simple",
             "limit_price":str(limit_price)
             # "take_profit": {
@@ -80,13 +81,13 @@ def send_order(recieved_data,client,quan,price,username):
             }
             r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
             response=json.loads(r.content)
-                            
+            print(response)
         if recieved_data['TT']=='LIMIT':
-            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT")
+            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT",quantity=quantity)
             p.save()
 
         if recieved_data['TT']=='MARKET':
-            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET")
+            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET",quantity=quantity)
             p.save()
         return response
 
@@ -98,7 +99,7 @@ def tradingview_to_alpaca(recieved_data,client,username):
 
     price=recieved_data['PRC']
     quan=calculate_quantity(recieved_data,price,client)
-    send_order(recieved_data, quan,price,username)
+    send_order(recieved_data,client, quan,price,username)
         
         
 
