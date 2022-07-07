@@ -32,30 +32,30 @@ def calculate_quantity(recieved_data,price,client):
 def send_order(recieved_data,client,quan,price,myuser):
     try:
         
-        order_type=recieved_data['OT']
         transaction_type=recieved_data['TT']
+        order_type=recieved_data['OT']
         symbol=recieved_data['SYM']
         quantity=quan
 
 
 
 
-        if recieved_data['TT']=='MARKET':
-            client.create_order(str(symbol.upper()),str(transaction_type.lower()),str(order_type.lower()),float(quantity))
+        if recieved_data['OT']=='MARKET':
+            client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity))
 
 
 
-        if recieved_data['TT']=='LIMIT':
+        if recieved_data['OT']=='LIMIT':
             limit_price=price*(1+int(recieved_data['LIMIT']))
-            client.create_order(str(symbol.upper()),str(transaction_type.lower()),str(order_type.lower()),float(quantity),float(limit_price))
+            client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity),float(limit_price))
 
 
-        if recieved_data['TT']=='LIMIT':
-            p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT",quantity=quantity)
+        if recieved_data['OT']=='LIMIT':
+            p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
 
-        if recieved_data['TT']=='MARKET':
-            p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET",quantity=quantity)
+        if recieved_data['OT']=='MARKET':
+            p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
         return response
 

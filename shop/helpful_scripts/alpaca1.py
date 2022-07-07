@@ -35,17 +35,16 @@ def send_order(recieved_data,client,quan,price,username):
         order_type=recieved_data['OT']
         symbol=recieved_data['SYM']
         quantity=quan
-
+        transaction_type=recieved_data["TT"]
         ORDERS_URL = "{}/v2/orders".format(username.alpaca_base_url)
         HEADERS = {'APCA-API-KEY-ID': username.alpaca_api_keys, 'APCA-API-SECRET-KEY': username.alpaca_secret_keys}
 
 
-        
-        if recieved_data['TT']=='MARKET':
+        if recieved_data['OT']=='MARKET':
             data = {
             "symbol": str(symbol),
             "qty": quan,
-            "side": order_type.lower(),
+            "side": transaction_type.lower(),
             "type": "market",
             "time_in_force": recieved_data['TIF'].lower(),
             "order_class": "simple"
@@ -60,14 +59,14 @@ def send_order(recieved_data,client,quan,price,username):
             response=json.loads(r.content)
             print(response)
 
-        if recieved_data['TT']=='LIMIT':
+        if recieved_data['OT']=='LIMIT':
             limit_price=price*(1+int(recieved_data['LIMIT']))
 
 
             data = {
             "symbol": str(symbol),
             "qty": quan,
-            "side": order_type.lower(),
+            "side": transaction_type.lower(),
             "type": "limit",
             "time_in_force": recieved_data['TIF'].lower(),
             "order_class": "simple",
@@ -82,12 +81,13 @@ def send_order(recieved_data,client,quan,price,username):
             r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
             response=json.loads(r.content)
             print(response)
-        if recieved_data['TT']=='LIMIT':
-            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT",quantity=quantity)
+
+        if recieved_data['OT']=='LIMIT':
+            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
 
-        if recieved_data['TT']=='MARKET':
-            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET",quantity=quantity)
+        if recieved_data['OT']=='MARKET':
+            p = tradingview_orders(broker="ALPACA",username=username.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
         return response
 

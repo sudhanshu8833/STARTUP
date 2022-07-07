@@ -889,18 +889,18 @@
                 <span class="nav-text mm-show">Dashboard</span>
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a href="/all_bots" class="ai-icon" aria-expanded="false">
                 <i class="flaticon-040-graph"></i>
                 <span class="nav-text">Upgrade bots</span>
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <a href="/bots" class="ai-icon" aria-expanded="false">
                 <i class="flaticon-013-checkmark"></i>
                 <span class="nav-text">bots</span>
               </a>
-            </li>
+            </li> -->
 
 
             <li>
@@ -1172,7 +1172,7 @@
                         <tbody>
 
                           {% for i in total %}
-                          {% if i.order_type == "buy" or i.order_type == "squareoffsell" %}
+                          {% if i.order_type == "BUY"%}
                           <tr>
                             <td>
                               <svg
@@ -1201,13 +1201,13 @@
                                   >{{ i.symbol }}</a
                                 >
                               </h6>
-                              <span class="fs-14">symbol</span>
+                              <span class="fs-14">{{ i.broker }}</span>
                             </td>
                             <td>
                               <h6 class="fs-16 text-black font-w600 mb-0">
                                 {{ i.time_in }}
                               </h6>
-                              <span class="fs-14">05:34:45 AM</span>
+                              <!-- <span class="fs-14">05:34:45 AM</span> -->
                             </td>
                             <td>
                               <span class="fs-16 text-black font-w600"
@@ -1256,13 +1256,13 @@
                                   >{{ i.symbol }}</a
                                 >
                               </h6>
-                              <span class="fs-14">symbol</span>
+                              <span class="fs-14">{{ i.broker }}</span>
                             </td>
                             <td>
                               <h6 class="fs-16 text-black font-w600 mb-0">
                                 {{ i.time_in}}
                               </h6>
-                              <span class="fs-14">05:34:45 AM</span>
+                              <!-- <span class="fs-14">05:34:45 AM</span> -->
                             </td>
                             <td>
                               <span class="fs-16 text-black font-w600"

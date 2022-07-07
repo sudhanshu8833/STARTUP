@@ -1,4 +1,3 @@
-# %%
 from shop.helpful_scripts.tradingview_broker import tradingview_to_brkr
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
@@ -9,7 +8,7 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.http import HttpResponse
-from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders
+from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders, tradingview_orders
 import random
 from django.core.mail import send_mail
 from django.conf import settings
@@ -574,7 +573,7 @@ def signup(request):
                 messages.success(
                     request, " Your Account has been successfully created")
                 login(request, usr)
-                return redirect('all_bots')
+                return redirect('index')
             else:
                 messages.warning(request, " You Entered wrong OTP !")
                 return redirect(request, "shop/login.html", {'otp': True, 'usr': usr})
@@ -657,49 +656,11 @@ def signup(request):
 def index(request):
     current_user = request.user
     total = []
-    total2 = []
-    buy1 = None
-    try:
-        buy1 = BOT1.objects.get(email=current_user.email)
-    except:
-        pass
-    if(buy1):
-        Buy1 = orders.objects.all().filter(bot=1)
-        for i in Buy1:
-            total.append(i)
-        total2.append(buy1)
-        print(buy1)
-    buy2 = None
-    try:
-        buy2 = BOT2.objects.get(email=current_user.email)
-    except:
-        pass
-    if(buy2):
-        Buy2 = orders.objects.all().filter(bot=2)
-        for i in Buy2:
-            total.append(i)
-        total2.append(buy2)
-    buy3 = None
-    try:
-        buy3 = BOT3.objects.get(email=current_user.email)
-    except:
-        pass
-    if(buy3):
-        Buy3 = orders.objects.all().filter(bot=3)
-        for i in Buy3:
-            total.append(i)
-        total2.append(buy3)
-    buy4 = None
-    try:
-        buy4 = BOT4.objects.get(email=current_user.email)
-    except:
-        pass
-    if(buy4):
-        Buy4 = orders.objects.all().filter(bot=4)
-        for i in Buy4:
-            total.append(i)
-        total2.append(buy4)
-
+    # total2 = []
+    Buy1 = tradingview_orders.objects.all().filter(username=current_user)
+    for i in Buy1:
+        total.append(i)
+    # print(buy1)
     # params={'zipped':zipped}
     myuser = User1.objects.get(username=current_user)
     print(total)
@@ -738,7 +699,7 @@ def handleLogin(request):
             messages.success(request, "Successfully Logged In")
             login(request, user)
             # return redirect('index',params)
-            return redirect("all_bots")
+            return redirect("index")
         elif not User.objects.filter(username=loginusername).exists():
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("signup")
@@ -792,5 +753,3 @@ def resendOTP(request):
             )
             return HttpResponse("Resend")
     return HttpResponse("Can't Send")
-
-# %%

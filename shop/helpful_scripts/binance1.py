@@ -43,11 +43,11 @@ def calculate_quantity(recieved_data,price,info,client):
 def send_order(recieved_data,client,quan,price,info,username):
     try:
         precision=get_precision(recieved_data['SYM'],info)
-        order_type=recieved_data['OT']
+        transaction_type=recieved_data['TT']
         symbol=recieved_data['SYM']
         quantity=round(quan,precision)
-        if recieved_data['TT']=='MARKET':
-            if order_type=="BUY":
+        if recieved_data['OT']=='MARKET':
+            if transaction_type=="BUY":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="BUY",
@@ -55,7 +55,7 @@ def send_order(recieved_data,client,quan,price,info,username):
 
                             quantity=quantity)
 
-            if order_type=="SELL":
+            if transaction_type=="SELL":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="SELL",
@@ -65,12 +65,12 @@ def send_order(recieved_data,client,quan,price,info,username):
 
 
 
-        if recieved_data['TT']=='LIMIT':
+        if recieved_data['OT']=='LIMIT':
             limit_price=price*(1+int(recieved_data['LIMIT']))
             
 
 
-            if order_type=="BUY":
+            if transaction_type=="BUY":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="BUY",
@@ -80,7 +80,7 @@ def send_order(recieved_data,client,quan,price,info,username):
                             price=limit_price)
 
 
-            if order_type=="SELL":
+            if transaction_type=="SELL":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="SELL",
@@ -89,12 +89,12 @@ def send_order(recieved_data,client,quan,price,info,username):
                             quantity=quantity,
                             price=limit_price)
                             
-        if recieved_data['TT']=='LIMIT':
-            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type="LIMIT",quantity=quantity)
+        if recieved_data['OT']=='LIMIT':
+            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=limit_price,time_in=time.time(),transaction_type=transaction_type,order_type="LIMIT",quantity=quantity)
             p.save()
 
-        if recieved_data['TT']=='MARKET':
-            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type="MARKET",quantity=quantity)
+        if recieved_data['OT']=='MARKET':
+            p = tradingview_orders(broker="BINANCE",username=username,symbol=symbol, Price_in=price, time_in=time.time(),transaction_type=transaction_type,order_type="MARKET",quantity=quantity)
             p.save()
         return order1
     except Exception as e:

@@ -24,6 +24,9 @@
       href="{% static 'shop/img/2_blue.png' %}"
       type="image/png"
     />
+
+    <link rel="stylesheet" href="{% static 'shop/bootstrap.min.css' %}">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'shop/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'shop/animate.css' %}" />
@@ -113,11 +116,11 @@
                   padding: 15px;
                 "
               >
-                Binance Bot
+                Algo Bots
               </h1>
               <p style="font-weight: bolder">
                 Right now the website is not in Production, it will be live
-                tentatively from <u>1st August, 2022</u>
+                tentatively from <u>1st Aug, 2022</u>
               </p>
               <div class="header-button">
                 <a
@@ -154,10 +157,11 @@
               <div class="icon">
                 <i class="lni-invention"></i>
               </div>
-              <h4>Trading Bots</h4>
-              <p>
-                We Provide you with flawless, easy to use trading bots, which
-                trades for you all day long with zero manual intervention.
+              <h4>Broker Connection</h4>
+              <p><b>
+                Not Able to Invest Real Money on your tradingview strategy?</p></b>
+                <p>
+                We are here to rescue, We will send your Tradingview order signals to Your choice of Broker.
               </p>
             </div>
           </div>
@@ -168,10 +172,9 @@
               <div class="icon">
                 <i class="lni-briefcase"></i>
               </div>
-              <h4>Backtesting</h4>
+              <h4>Brokers and Exchanges</h4>
               <p>
-                Backtesting reports for all our bots are visible on the website,
-                have a look and decide for your own.
+                We aim to Provide a wide variety of Brokers, inlcuding  Alpaca, Angle-broking, 5paisa, Tda-meritrade, over 50 different crypto brokers including binance, kucoin, bybit, bitmex etc, All the Forex brokers including Oanda, FXCM etc etc.
               </p>
             </div>
           </div>
@@ -185,8 +188,7 @@
               </div>
               <h4>Free</h4>
               <p>
-                We provide you with one bot completely free for one complete
-                month, have that setup on your account.
+                You are really lucky today, to stumble upon our website, Because we are providing 2 months of all our services for free, to all our users, whoever signs up before 1st September 2022.
               </p>
             </div>
           </div>
@@ -216,19 +218,18 @@
             <div class="business-item-info">
               <h3>Want to know about us ?</h3>
               <p>
-                Algo99 provide you a way to earn money through automated
-                trading. We have thoroughly tested trading strategies, which are
-                giving results above industry standards. These strategies are
-                based on logical sentiments of market, which are converted
-                through mathematical models, designed by our great team of
-                traders, having experience of more then 15 years in the market.
+                Algo99 provide you a way to Trade Real money on your  tradingview 
+                indicator or strategy. Right now, Tradingview do not provide a way 
+                to trade on the real broker, But don't worry we have came for the rescue
+                , We will connect your tradingview account with your choice of broker. We have a promise to deliver the best quanlity product 
+                as cheap as possible. Please join us in this journey.
               </p>
               <p>
                 Come give it a try, A try won't give you a huge loss, but if you
                 don't try you might loose a opportunity to make fortunes.
               </p>
 
-              <a class="btn btn-common" href="#">Know More</a>
+              <a class="btn btn-common" href="#features">Know More</a>
             </div>
           </div>
           <!-- End Col -->
@@ -269,7 +270,7 @@
               <div class="feature-info float-left">
                 <h4>Easy to Use</h4>
                 <p>
-                  Just get your Binance api setup <br />
+                  Just get your api setup <br />
                   through our video, and thats it.
                 </p>
               </div>
@@ -288,7 +289,7 @@
               <div class="feature-info float-left">
                 <h4>Free</h4>
                 <p>
-                  Use our free bot for a complete month <br />No hidden charges
+                  All our services are Free now <br />No hidden charges
                 </p>
               </div>
             </div>
@@ -325,7 +326,7 @@
               <div class="feature-info float-left">
                 <h4>Tons of Options</h4>
                 <p>
-                  You have multiple bots to choose from<br />See what suits you
+                  You have multiple brokers to choose from <br />See what suits you
                   the best.
                 </p>
               </div>
@@ -342,9 +343,9 @@
                 <i class="lni-reload"></i>
               </div>
               <div class="feature-info float-left">
-                <h4>Free Future Updates</h4>
+                <h4>Future Updates</h4>
                 <p>
-                  We are not stopping here <br />It's actually just a start.
+                  We Promise to provide atleast <br />one major update every 2 weeks.
                 </p>
               </div>
             </div>
@@ -393,62 +394,18 @@
           </div>
         </div>
       </div>
+
     </section>
+
+
+
+
+
+    
     <!-- Recent Showcase Section End -->
 
     <!-- Our Pricing Plan Section Start -->
-    <section id="pricing" class="section">
-      <div class="container">
-        <!-- Start Row -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="pricing-text section-header text-center">
-              <div>
-                <h2 class="section-title">Pricing Plans</h2>
-                <div class="desc-text">
-                  <p>Price is what you pay. Value is what you get.</p>
-                  <p>
-                    You know you’re priced right when your customers
-                    complain—but buy anyway.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Row -->
-        <!-- Start Row -->
-        <div class="row pricing-tables">
-          <!--  Start Col -->
-          {% for i,j in zipped %}
-          <div class="col-lg-4 col-md-4 col-xs-12">
-            <div class="pricing-table text-center">
-              <div class="pricing-details">
-                <h3>{{ i.title }}</h3>
-                <h1><span>$</span>{{ i.Price }}</h1>
-                <ul>
-                  <li>{{ j.0 }}</li>
-                  <li>{{ j.1 }}</li>
-                  <li>{{ j.2 }}</li>
-                  <li>{{ j.3 }}</li>
-                  <!-- <li>5 GB Bandwith</li>
-                  <li>Minimal Features</li>
-                  <li>No Dashboard</li> -->
-                </ul>
-              </div>
-              <div class="plan-button">
-                <a href="/signup" class="btn btn-border">Purchase</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          <!--  End Col -->
-          <!--  Start Col -->
-          <!--  End Col -->
-        </div>
-        <!-- End Row -->
-      </div>
-    </section>
+
     <!-- Our Pricing Plan Section End -->
 
     <!-- Client Testimoninals Section Start -->
@@ -480,16 +437,13 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+       
+              Fantastic, we have some little problems of communication about the operativity,
+               but sid work really good with python and pinescript, the project are working great, 
+               for sure we will do new updates on this projects with him.
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>Krambler  <span> Italy</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -501,16 +455,10 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+                      I had a very good experience with him. will surely do more jobs with him
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>elclis  <span> Nigeria</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -522,16 +470,10 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+                      very helpful and willing to do the work. Would recommend.
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>devendman  <span> Customer</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -543,16 +485,10 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+                      Great communication. Hard worker. Listened well. Made all the edits as needed.
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>VPatel  <span> USA</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -564,16 +500,14 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+                      This seller is... Phenomenal.
+
+                      Looking forward to do work more projects with this seller. 
+                      
+                      Keep up your good works!
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>theodoreshin  <span> USA</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -585,16 +519,11 @@
                 <div class="testimonial-item">
                   <div class="content-inner">
                     <p class="description">
-                      Appropriately implement one-to-one catalysts for change
-                      <br />
-                      vis-a-vis wireless catalysts for change. Enthusiastically
-                      architect <br />
-                      adaptive e-tailers after sustainable total linkage.
-                      Appropriately <br />
-                      implement one-to-one catalysts for change.
+                      Great seller. Was very thorough and did exactly the task. Was very good at
+                       communicating progress of the work too. I ll definitely buy from him again. Thank you. Job well done.
                     </p>
                     <div class="author-info">
-                      <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+                      <h5>peterslove53  <span> Brazil</span></h5>
                     </div>
                   </div>
                   <div class="client-thumb">
@@ -637,7 +566,7 @@
             <div class="single-team">
               <div class="team-thumb">
                 <img
-                  src="{% static 'shop/img/adarsh.jpeg' %}"
+                  src="{% static 'shop/img/sudhansu.jpeg' %}"
                   class="img-fluid"
                   alt=""
                 />
@@ -647,25 +576,25 @@
                 <div class="team-social-icons">
                   <ul class="social-list">
                     <li>
-                      <a href="https://www.instagram.com/my_name_ideal/?hl=en"
+                      <a href="https://www.instagram.com/sudhanshu.io/"
                         ><i class="lni-instagram-original"></i
                       ></a>
                     </li>
                     <li>
                       <a
-                        href="https://www.linkedin.com/in/adarsh-prasad-78556a203/"
+                        href="https://www.linkedin.com/in/sudhanshu-singh-b82358b9/"
                         ><i class="lni-linkedin-original"></i
                       ></a>
                     </li>
                     <li>
-                      <a href="https://github.com/adarshprasad406"
+                      <a href="https://github.com/sudhanshu8833/"
                         ><i class="lni-github-original"></i
                       ></a>
                     </li>
                   </ul>
                 </div>
                 <div class="team-inner text-center">
-                  <h5 class="team-title">Adarsh Prasad</h5>
+                  <h5 class="team-title">Sudhanshu Singh</h5>
                   <p>Founder / Core Developer</p>
                 </div>
               </div>
@@ -1047,7 +976,7 @@
             <!-- Start Col -->
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mb-12">
               <div class="footer-logo">
-                <img src="{% static 'shop/img/Algo-99 (1).png' %}" alt="" />
+                <img src="{% static 'shop/img/2 white.png' %}" alt="" />
               </div>
             </div>
             <!-- End Col -->
