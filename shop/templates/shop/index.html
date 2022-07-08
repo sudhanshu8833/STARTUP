@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/star-rating/star-rating-svg.css' %}">
     <link href="{% static 'vendor/jquery-nice-select/css/nice-select.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
       .alert {
@@ -796,7 +797,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="btn btn-primary d-sm-inline-block d-none">Copy Passphrase<i class="las la-signal ms-3 scale5"></i></a>
+                  <button class="btn btn-primary btn sweet-wrong" >Copy Passphrase</button>
                 </li>
               </ul>
             </div>
@@ -1826,12 +1827,16 @@
     <script src="{% static 'vendor/global/global.min.js' %}"></script>
     <script src="{% static 'vendor/chart.js/Chart.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery-nice-select/js/jquery.nice-select.min.js' %}"></script>
-
+    <script src="{% static 'vendor/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'js/plugins-init/sweetalert.init.js' %}"></script>
     <!-- Apex Chart -->
     <script src="{% static 'vendor/apexchart/apexchart.js' %}"></script>
     <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
     <script src="{% static 'vendor/wnumb/wNumb.js' %}"></script>
-
+    <script>
+      document.querySelector(".sweet-wrong").onclick = function () { sweetAlert("Pass Phrase Copied !!"); navigator.clipboard.writeText
+("{{ myuser.passphrase }}");}
+  </script>
     <!-- Dashboard 1 -->
     <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
 
