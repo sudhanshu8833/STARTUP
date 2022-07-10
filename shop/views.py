@@ -1,3 +1,4 @@
+from sqlalchemy import null
 from shop.helpful_scripts.tradingview_broker import tradingview_to_brkr
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
@@ -9,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.http import HttpResponse
 from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders, tradingview_orders
+from django.contrib.auth.decorators import login_required
+
 import random
 from django.core.mail import send_mail
 from django.conf import settings
@@ -30,7 +33,7 @@ info = client.futures_exchange_info()
 # client1 = Trade(key='628f9f8a43ddbc0001e243d2', secret='6c138913-3815-486e-bb97-c6c38c164af1', passphrase='@Support123', is_sandbox=False, url='')
 ###################################################
 
-
+@login_required(login_url='/signup')
 def refer(request, bot_price):
 
     person_a = 20
@@ -94,7 +97,7 @@ def refer(request, bot_price):
 
 ###################################################
 
-
+@login_required(login_url='/signup')
 def key(request):
     current_user = request.user
     if request.method == "POST":
@@ -196,36 +199,10 @@ def tradingview(request):
 
 
 def home(request):
-    total = []
-    total2 = []
-    Buy1 = BOT.objects.get(bot_id=1)
-    text = Buy1.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy1)
-    Buy2 = BOT.objects.get(bot_id=2)
-    text = Buy2.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy2)
-    Buy3 = BOT.objects.get(bot_id=3)
-    text = Buy3.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy3)
-    Buy4 = BOT.objects.get(bot_id=4)
-    text = Buy4.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy4)
-    zipped = zip(total, total2)
-
-    params = {'zipped': zipped}
-    return render(request, "shop/home1.html", params)
+    return render(request, "shop/home1.html")
 
 
-def about(request):
-    return render(request, "shop/about.html")
+
 
 
 def contact(request):
@@ -242,6 +219,7 @@ def error(request):
     return render(request, "shop/error.html")
 
 
+@login_required(login_url='/signup')
 def all_bots(request):
     current_user = request.user
     actual_user = User1.objects.get(username=current_user)
@@ -378,7 +356,7 @@ def all_bots(request):
     params = {'zipped': zipped, 'myuser': myuser}
     return render(request, "shop/all_bots.html", params)
 
-
+@login_required(login_url='/signup')
 def user_bots(request):
     current_user = request.user
     if request.method == "POST":
@@ -454,12 +432,15 @@ def user_bots(request):
     params = {'zipped': zipped}
     return render(request, "shop/user_bots.html", params)
 
+@login_required(login_url='/signup')
 def add_api(request):
     current_user = request.user
     myuser = User1.objects.get(username=current_user)
     params = {'myuser': myuser}
     return render(request, "shop/add_api_credentials.html",params)
 
+
+@login_required(login_url='/signup')
 def setting(request):
     current_user = request.user
     if request.method == "POST":
@@ -523,11 +504,12 @@ def setting(request):
     params = {'myuser': myuser}
     return render(request, "shop/settings.html", params)
 
-
+@login_required(login_url='/signup')
 def checkout(request):
     return render(request, "shop/checkout.html")
 
 
+@login_required(login_url='/signup')
 def bots(request):
     current_user = request.user
     total = []
@@ -559,6 +541,11 @@ def bots(request):
 
 
 def signup(request):
+    if request.method=="GET":
+        myuser=request.user
+        print(type(myuser))
+        # if myuser.is_anonymous():
+        #     print("##################")
     if request.method == "POST":
         get_otp = request.POST.get('otp')
         if get_otp:
@@ -641,18 +628,19 @@ def signup(request):
         user.save()
         usr_otp = random.randint(100000, 999999)
         UserOTP.objects.create(user=myuser, otp=usr_otp)
-        mess = f"Hello {username} \nYour OTP is {usr_otp}\nThanks!!"
+        mess = f"Hello {username} \n\nYour OTP is {usr_otp} \n\n, Please Do not share it with anyone..!!\n If you didn't requested to login, you can safely ignore this email..!!\n\n You may be required to register with the Site. You agree to keep your password confidential and will be responsible for all use of your account and password. We reserve the right to remove, reclaim, or change a username you select if we determine, in our sole discretion, that such username is inappropriate, obscene, or otherwise objectionable. \n\nAlgo99\n H.no. 381, Rajendra Nagar, Pathakhera, Distt- Betul \nBetul, Madhya Pradesh 460449 \nIndia \nPhone: 9145814438 \nalgo99.sudhanshu@gmail.com"
         send_mail(
             "Welcome to algo99 -Verify Your Email",
             mess,
             settings.EMAIL_HOST_USER,
-            [email],
+            [myuser.email],
             fail_silently=False
         )
+        messages.success(request,"OTP is sent to your email..!!!")
         return render(request, "shop/login.html", {'otp': True, 'usr': myuser})
     return render(request, "shop/login.html")
 
-
+@login_required(login_url='/signup')
 def index(request):
     current_user = request.user
     total = []
@@ -685,7 +673,7 @@ def handleLogin(request):
                 usr2.is_active = True
                 usr2.save()
                 login(request, usr)
-                messages.success(request, "Successfully Logged In")
+                # messages.success(request, "Successfully Logged In")
                 return redirect("index")
             else:
                 messages.warning(request, " You Entered wrong OTP !")
@@ -696,7 +684,7 @@ def handleLogin(request):
         if user is not None:
             myuser = User1.objects.get(username=loginusername)
             params = {'myuser': myuser}
-            messages.success(request, "Successfully Logged In")
+            # messages.success(request, "Successfully Logged In")
             login(request, user)
             # return redirect('index',params)
             return redirect("index")
@@ -707,7 +695,7 @@ def handleLogin(request):
             myuser = User.objects.get(username=loginusername)
             usr_otp = random.randint(100000, 999999)
             UserOTP.objects.create(user=myuser, otp=usr_otp)
-            mess = f"Hello {loginusername} \nYour OTP is {usr_otp}\nThanks!!"
+            mess = f"Hello {loginusername} \n\nYour OTP is {usr_otp} \n\n, Please Do not share it with anyone..!!\n If you didn't requested to login, you can safely ignore this email..!!\n\n You may be required to register with the Site. You agree to keep your password confidential and will be responsible for all use of your account and password. We reserve the right to remove, reclaim, or change a username you select if we determine, in our sole discretion, that such username is inappropriate, obscene, or otherwise objectionable. \n\nAlgo99\n H.no. 381, Rajendra Nagar, Pathakhera, Distt- Betul \nBetul, Madhya Pradesh 460449 \nIndia \nPhone: 9145814438 \nalgo99.sudhanshu@gmail.com"
             send_mail(
                 "Welcome to algo99 -Verify Your Email",
                 mess,
@@ -715,6 +703,7 @@ def handleLogin(request):
                 [myuser.email],
                 fail_silently=False
             )
+            messages.success(request,"OTP is sent to your email..!!!")
             return render(request, "shop/login.html", {'otp': True, 'usr': myuser})
         else:
             messages.error(request, "Invalid credentials! Please try again")
@@ -743,7 +732,7 @@ def resendOTP(request):
             usr = User.objects.get(username=get_usr)
             usr_otp = random.randint(100000, 999999)
             UserOTP.objects.create(user=usr, otp=usr_otp)
-            mess = f"Hello {get_usr} \nYour OTP is {usr_otp}\nThanks!!"
+            mess = f"Hello {get_usr} \n\nYour OTP is {usr_otp} \n\n, Please Do not share it with anyone..!!\n If you didn't requested to login, you can safely ignore this email..!!\n\n You may be required to register with the Site. You agree to keep your password confidential and will be responsible for all use of your account and password. We reserve the right to remove, reclaim, or change a username you select if we determine, in our sole discretion, that such username is inappropriate, obscene, or otherwise objectionable. \n\nAlgo99\n H.no. 381, Rajendra Nagar, Pathakhera, Distt- Betul \nBetul, Madhya Pradesh 460449 \nIndia \nPhone: 9145814438 \nalgo99.sudhanshu@gmail.com"
             send_mail(
                 "Welcome to algo99 -Verify Your Email",
                 mess,
@@ -751,5 +740,6 @@ def resendOTP(request):
                 [usr.email],
                 fail_silently=False
             )
+            messages.success(request,"OTP is sent to your email..!!!")
             return HttpResponse("Resend")
     return HttpResponse("Can't Send")
