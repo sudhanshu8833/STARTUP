@@ -1,7 +1,9 @@
 from shop.models import User1
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
-def refer_bot(request, bot_price):
+@login_required(login_url='/signup')
+def refer(request, bot_price):
 
     person_a = 20
     person_b = 20

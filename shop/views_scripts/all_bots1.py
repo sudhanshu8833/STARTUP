@@ -3,8 +3,11 @@ from shop.models import User1, BOT, BOT, BOT1, BOT2, BOT3, BOT4
 from django.contrib import messages
 import datetime
 from shop.views import *
+from django.contrib.auth.decorators import login_required
+from .refer1 import *
 
-def all_bots_bot(request):
+@login_required(login_url='/signup')
+def all_bots(request):
     current_user = request.user
     actual_user = User1.objects.get(username=current_user)
     if request.method == "POST":
