@@ -7,8 +7,10 @@ import json
 from .binance1 import *
 from .alpaca1 import *
 from .kucoin1 import *
+from .angel1 import *
 from alpaca_trade_api.rest import REST, TimeFrame
 import ccxt
+from smartapi import SmartConnect 
 
 def tradingview_to_brkr(myuser,recieved_data,info):
 
@@ -27,4 +29,8 @@ def tradingview_to_brkr(myuser,recieved_data,info):
         client=ccxt.kucoin({"apiKey":str(myuser.kucoin_api_keys),"secret":str(myuser.kucoin_secret_keys),"password":str(myuser.kucoin_password)})
         tradingview_to_kucoin(recieved_data,client,myuser)
 
-
+    if "ANGEL" in recieved_data['BRK']:
+        
+        client=SmartConnect(api_key=str(myuser.angel_api_keys))
+        data = client.generateSession(str(myuser.angel_client_id),str(myuser.angel_password))
+        tradingview_to_angel(recieved_data,client,myuser)

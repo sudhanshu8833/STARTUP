@@ -32,10 +32,14 @@ class User1(models.Model):
     alpaca_base_url=models.CharField(max_length=100,default='https://app.alpaca.markets')
 
     # kucoin api keys
-
     kucoin_api_keys=models.CharField(max_length=100,default='SOME STRING')
     kucoin_secret_keys=models.CharField(max_length=100,default='SOME STRING')
     kucoin_password=models.CharField(max_length=100,default='NONE')
+
+    # Angel api keys
+    angel_api_keys=models.CharField(max_length=100,default='SOME STRING')
+    angel_client_id=models.CharField(max_length=10,default='SOME STRING')
+    angel_password=models.CharField(max_length=10,default='SOME STRING')
 
 
     free=models.IntegerField(default=1)

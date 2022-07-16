@@ -11,13 +11,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'shop/login.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <style>.alert {
+    <style>.alert-danger {
       padding: 20px;
       background-color: #f44336; /* Red */
       color: white;
       margin-bottom: 15px;
     }
     
+          .alert-success {
+      padding: 20px;
+      background-color: green; /* Red */
+      color: white;
+      margin-bottom: 15px;
+    }
+
     
     .closebtn {
       margin-left: 15px;
@@ -40,7 +47,7 @@
     <div id="flash">
       {% if messages %}
        {% for message in messages %}
-       <div class="alert">
+       <div class="alert-{{message.tags}}">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         {{message}}
       </div>

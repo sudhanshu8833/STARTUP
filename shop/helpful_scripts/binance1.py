@@ -46,8 +46,9 @@ def send_order(recieved_data,client,quan,price,info,username):
         transaction_type=recieved_data['TT']
         symbol=recieved_data['SYM']
         quantity=round(quan,precision)
+        
         if recieved_data['OT']=='MARKET':
-            if transaction_type=="BUY":
+            if transaction_type.upper()=="BUY":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="BUY",
@@ -55,7 +56,7 @@ def send_order(recieved_data,client,quan,price,info,username):
 
                             quantity=quantity)
 
-            if transaction_type=="SELL":
+            if transaction_type.upper()=="SELL":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="SELL",
@@ -66,11 +67,15 @@ def send_order(recieved_data,client,quan,price,info,username):
 
 
         if recieved_data['OT']=='LIMIT':
-            limit_price=price*(1+int(recieved_data['LIMIT']))
+            if transaction_type=='buy':
+                limit_price=price*(1+int(recieved_data['LIMIT']))
+
+            if transaction_type=='sell':
+                limit_price=price*(1-int(recieved_data['LIMIT']))
             
 
 
-            if transaction_type=="BUY":
+            if transaction_type.upper()=="BUY":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="BUY",
@@ -80,7 +85,7 @@ def send_order(recieved_data,client,quan,price,info,username):
                             price=limit_price)
 
 
-            if transaction_type=="SELL":
+            if transaction_type.upper()=="SELL":
                 order1 = client.futures_create_order(
                             symbol=str(symbol),
                             side="SELL",

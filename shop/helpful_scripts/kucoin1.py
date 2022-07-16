@@ -46,7 +46,13 @@ def send_order(recieved_data,client,quan,price,myuser):
 
 
         if recieved_data['OT']=='LIMIT':
-            limit_price=price*(1+int(recieved_data['LIMIT']))
+            
+            if transaction_type=='buy':
+                limit_price=price*(1+int(recieved_data['LIMIT']))
+
+            if transaction_type=='sell':
+                limit_price=price*(1-int(recieved_data['LIMIT']))
+
             client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity),float(limit_price))
 
 

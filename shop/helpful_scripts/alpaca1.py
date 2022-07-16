@@ -60,7 +60,11 @@ def send_order(recieved_data,client,quan,price,username):
             print(response)
 
         if recieved_data['OT']=='LIMIT':
-            limit_price=price*(1+int(recieved_data['LIMIT']))
+            if transaction_type=='buy':
+                limit_price=price*(1+int(recieved_data['LIMIT']))
+
+            if transaction_type=='sell':
+                limit_price=price*(1-int(recieved_data['LIMIT']))
 
 
             data = {
