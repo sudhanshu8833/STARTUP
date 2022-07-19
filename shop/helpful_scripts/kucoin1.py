@@ -5,7 +5,9 @@ from shop.models import tradingview_orders
 import time
 import requests
 import json
-
+import telepot
+bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
+bot.getMe()
 
 
 
@@ -39,7 +41,7 @@ def send_order(recieved_data,client,quan,price,myuser):
 
 
 
-
+ 
         if recieved_data['OT']=='MARKET':
             client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity))
 
@@ -60,14 +62,28 @@ def send_order(recieved_data,client,quan,price,myuser):
             p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
 
+            if myuser.telegram_chat_id!=0:
+                bot.sendMessage(int(myuser.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type:{order_type} -Quantity:{quantity}\n ----------------------------------- ")
+
+
+
         if recieved_data['OT']=='MARKET':
             p = tradingview_orders(broker="KUCOIN",myuser=myuser.username,symbol=symbol, Price_in=price, time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)
             p.save()
+
+            if myuser.telegram_chat_id!=0:
+                bot.sendMessage(int(myuser.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type:{order_type} -Quantity:{quantity}\n ----------------------------------- ")
+
+
         return response
 
     except Exception as e:
-        print(str(e))
-    
+        if myuser.telegram_chat_id!=0:
+            bot.sendMessage(int(myuser.telegram_chat_id),f"some error occured {str(e)}")
+
+            
+        bot.sendMessage(1039725953,f"some error occured --{str(e)} for {myuser.username}")
+
 
 def tradingview_to_kucoin(recieved_data,client,myuser):
 

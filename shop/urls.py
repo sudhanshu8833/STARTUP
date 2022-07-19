@@ -7,7 +7,7 @@ urlpatterns = [
     path("", views.home, name="ShopHome"),
 
     path("contact/", views.contact, name="ContactUs"),
-    path("tradingview/",views.tradingview,name='tradingview'),
+    path("tradingview/", views.tradingview, name='tradingview'),
     path("bots/", views.bots, name="bots"),
     path("add_api/", views.add_api, name="add_api"),
     path("terms/", views.terms, name="terms"),
@@ -23,4 +23,5 @@ urlpatterns = [
     path("withdraw", views.withdraw, name="withdraw"),
     path("resendOTP", views.resendOTP, name="resendOTP"),
     path("key", views.key, name="key"),
+    path("tradingview_webhook/<str:passphrase>", views.tradingview_webhook, name='tradingview_webhook'),
 ]

@@ -5,33 +5,25 @@ from .views_scripts.all_bots1 import *
 from .views_scripts.helpful import *
 from .views_scripts.additional import *
 
-import string
 from shop.helpful_scripts.tradingview_broker import tradingview_to_brkr
-from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate,  login, logout
-from django.contrib.auth.models import User
-import datetime
+
+
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders, tradingview_orders
-import random
-from django.core.mail import send_mail
+from .models import User1
+
 from django.conf import settings
 import telepot
-import pandas as pd
 import json
-
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
-# from kucoin.client import Market
 
-client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW",
-                "v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
+client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW","v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
 
 info = client.futures_exchange_info()
 # from kucoin.client import Trade
@@ -104,13 +96,43 @@ def key(request):
             myuser = User1.objects.get(username=current_user)
 
             # make_object_kucoin(kucoinapi,kucoinsecret,password,myuser.username)
-
+            
             myuser.kucoin_api_keys = kucoinapi
             myuser.kucoin_secret_keys = kucoinsecret
             myuser.kucoin_password = password
             myuser.save()
             messages.success(request, "Successfully Added/Changed Alpaca Keys")
             return redirect('index')
+
+
+        elif brokerr == "5paisa":
+            paisa_email = request.POST['paisa_email']
+            paisa_password = request.POST['paisa_password']
+            paisa_DOB = request.POST['paisa_DOB']
+            paisa_api_appname = request.POST['paisa_api_appname']
+            paisa_api_appsource = request.POST['paisa_api_appsource']
+            paisa_api_userid = request.POST['paisa_api_userid']
+            paisa_api_password = request.POST['paisa_api_password']
+            paisa_api_userkey = request.POST['paisa_api_userkey']
+            paisa_api_encryptkey = request.POST['paisa_api_encryptkey']
+            myuser = User1.objects.get(username=current_user)
+
+            # make_object_kucoin(kucoinapi,kucoinsecret,password,myuser.username)
+
+            myuser.paisa_email = paisa_email
+            myuser.paisa_password = paisa_password
+            myuser.paisa_DOB = paisa_DOB
+            myuser.paisa_api_appname = paisa_api_appname
+            myuser.paisa_api_appsource = paisa_api_appsource
+            myuser.paisa_api_userid = paisa_api_userid
+            myuser.paisa_api_password = paisa_api_password
+            myuser.paisa_api_userkey = paisa_api_userkey
+            myuser.paisa_api_encryptkey = paisa_api_encryptkey
+            myuser.save()
+
+            messages.success(request, "Successfully Added/Changed 5paisa Keys")
+            return redirect('index')
+
 
         messages.success(request, "Successfully Added/Changed Keys")
         return redirect('index')
@@ -137,6 +159,29 @@ def tradingview(request):
 
 
 
+def add_telegram(request):
+    current_user = request.user
+    if request.method == "POST":
+        chat_id=request.POST['telegram_chat_id']
+        myuser = User1.objects.get(username=current_user)
+        myuser.telegram_chat_id=chat_id
+        myuser.save()
+        messages.success(request, "Successfully Added/Changed Telegram ID")
+        return redirect('index')
 
 
+@csrf_exempt
+def tradingview_webhook(request,passphrase):
+    if request.method == "POST":
+        received_json_data = json.loads(request.body.decode("utf-8"))
+        pp = passphrase
 
+        try:
+            myuser = User1.objects.get(passphrase=pp)
+        except:
+            return HttpResponse("Please send a valid Passphrase, following passphrase doesn't belong to anyone")
+        tradingview_to_brkr(myuser, received_json_data, info)
+
+        return HttpResponse(received_json_data)
+
+    return HttpResponse("send a valid post request please")

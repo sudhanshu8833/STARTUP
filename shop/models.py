@@ -36,10 +36,30 @@ class User1(models.Model):
     kucoin_secret_keys=models.CharField(max_length=100,default='SOME STRING')
     kucoin_password=models.CharField(max_length=100,default='NONE')
 
+
     # Angel api keys
     angel_api_keys=models.CharField(max_length=100,default='SOME STRING')
     angel_client_id=models.CharField(max_length=10,default='SOME STRING')
     angel_password=models.CharField(max_length=10,default='SOME STRING')
+
+    # 5paisa
+    paisa_email=models.CharField(max_length=100,default='SOME STRING')
+    paisa_password=models.CharField(max_length=100,default='SOME STRING')
+    paisa_DOB=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_appname=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_appsource=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_userid=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_password=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_userkey=models.CharField(max_length=100,default='SOME STRING')
+    paisa_api_encryptkey=models.CharField(max_length=100,default='SOME STRING')
+
+    # Alice-Blue
+
+    
+
+
+    # telegram
+    telegram_chat_id=models.IntegerField(default=0)
 
 
     free=models.IntegerField(default=1)

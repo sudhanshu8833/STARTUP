@@ -1,6 +1,6 @@
 
 from django.contrib.auth.decorators import login_required
-from shop.models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders, tradingview_orders,User
+from shop.models import User1, BOT, BOT1, BOT2, BOT3, BOT4, UserOTP, orders, tradingview_orders, User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from shop.views import *
@@ -9,7 +9,6 @@ from django.http import HttpResponse
 from shop.helpful_scripts.object import *
 from django.contrib.auth import authenticate,  login, logout
 from django.conf import settings
-
 
 
 def home(request):
@@ -39,6 +38,7 @@ def home(request):
 
     params = {'zipped': zipped}
     return render(request, "shop/home1.html", params)
+
 
 @login_required(login_url='/signup')
 def setting(request):
@@ -107,6 +107,7 @@ def setting(request):
 
 def checkout(request):
     return render(request, "shop/checkout.html")
+
 
 def terms(request):
     return render(request, "shop/terms.html")
@@ -209,7 +210,7 @@ def signup(request):
         myuser.save()
 
         chars = string.ascii_letters
-        size = 20
+        size = 40
 
         user = User1(username=username,
                      email=email,
