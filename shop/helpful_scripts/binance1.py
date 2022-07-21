@@ -111,7 +111,7 @@ def send_order(recieved_data,client,quan,price,info,username):
             p.save()
 
             if username.telegram_chat_id!=0:
-                bot.sendMessage(int(username.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type: LIMIT -Quantity:{quantity}\n ----------------------------------- ")
+                bot.sendMessage(int(username.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type: LIMIT \n-Quantity:{quantity}\n ----------------------------------- ")
 
 
 
@@ -120,7 +120,7 @@ def send_order(recieved_data,client,quan,price,info,username):
             p.save()
 
             if username.telegram_chat_id!=0:
-                bot.sendMessage(int(username.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type: MARKET -Quantity:{quantity}\n ----------------------------------- ")
+                bot.sendMessage(int(username.telegram_chat_id),f"-Time open: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))} \n -Symbol: {symbol} \n -Side: {transaction_type} \n - Price: {limit_price} \n -Order Type: MARKET \n-Quantity:{quantity}\n ----------------------------------- ")
 
 
         return order1

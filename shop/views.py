@@ -22,6 +22,9 @@ import telepot
 import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
+print(bot)
+print("**************************")
+
 
 client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW","v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
 
@@ -172,15 +175,16 @@ def add_telegram(request):
 
 @csrf_exempt
 def tradingview_webhook(request,passphrase):
+    print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
     if request.method == "POST":
         received_json_data = json.loads(request.body.decode("utf-8"))
-        pp = passphrase
+        pp = str(passphrase)
 
         try:
             myuser = User1.objects.get(passphrase=pp)
         except:
             return HttpResponse("Please send a valid Passphrase, following passphrase doesn't belong to anyone")
-        tradingview_to_brkr(myuser, received_json_data, info)
+        tradingview_to_brkr(myuser, received_json_data, info,bot)
 
         return HttpResponse(received_json_data)
 

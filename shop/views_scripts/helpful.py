@@ -372,6 +372,7 @@ def resendOTP(request):
                 [usr.email],
                 fail_silently=False
             )
+            
             print("hii")
             messages.success(request, "OTP is sent to your email..!!!")
             return HttpResponse("Resend")
