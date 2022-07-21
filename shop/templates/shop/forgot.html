@@ -84,14 +84,18 @@
                                                       
                                   </div>
                                     <h4 class="text-center mb-4">Enter Your OTP</h4>
-                                    <form action="/handleLogin" method="post" >{% csrf_token %}
+                                    <form action="/forgot" method="post" >{% csrf_token %}
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>OTP</strong></label>
                                             <input type="text" class="form-control" name="otp" placeholder="Enter Your OTP">
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>New Password</strong></label>
+                                            <input type="password" class="form-control" name="password" placeholder="Password">
+                                        </div>
                                         <input type="hidden" name="usr" value="{{usr.username}}"/>
                                         <div class="text-center mt-4">
-                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Change Password</button>
                                         </div>
                                         
                                     </form>
@@ -114,27 +118,16 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                   <div class="text-center mb-3">
-                                    <a href="/"><img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt=""></a>            
+                                    <img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt="">                
                                   </div>
-                                    <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form action="/handleLogin" method="post">{% csrf_token %}
+                                    <h4 class="text-center mb-4">Enter Your Username</h4>
+                                    <form action="/forgot" method="post">{% csrf_token %}
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Username</strong></label>
                                             <input type="text" class="form-control" name="username" placeholder="username">
                                         </div>
-                                       
-                                        <div class="mb-3">
-                                            <label class="mb-1"><strong>Password</strong></label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password">
-                                        </div>
-                                        <div class="row d-flex justify-content-between mt-4 mb-2">
-                                  
-                                          <div class="mb-3">
-                                              <a class="text-primary" href="/forgot">Forgot Password?</a>
-                                          </div>
-                                      </div>
                                       <div class="text-center">
-                                          <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                          <button type="submit" class="btn btn-primary btn-block">Change Password</button>
                                       </div>
                                   </form>
                                   <div class="new-account mt-3">

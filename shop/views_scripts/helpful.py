@@ -36,6 +36,9 @@ def home(request):
     total.append(Buy4)
     zipped = zip(total, total2)
 
+    data=User1.objects.filter(password='123',username='sid883')
+    print(data)
+    print("@@@@@@@@@@@@@@@@@@@@")
     params = {'zipped': zipped}
     return render(request, "shop/home1.html", params)
 
@@ -141,6 +144,8 @@ def bots(request):
     zipped = zip(total, total2)
     myuser = User1.objects.get(username=current_user)
     params = {'zipped': zipped, 'myuser': myuser}
+
+
     return render(request, "shop/bot_details.html", params)
 
 
@@ -162,12 +167,12 @@ def signup(request):
                 return redirect('index')
             else:
                 messages.warning(request, " You Entered wrong OTP !")
-                return redirect(request, "shop/login.html", {'otp': True, 'usr': usr})
+                return redirect(request, "shop/signup.html", {'otp': True, 'usr': usr})
         username = request.POST['username']
         email = request.POST['email']
-        phone = request.POST['phone']
+        phone = 9999999999
         password = request.POST['pass1']
-        confpassword = request.POST['pass2']
+        print(password)
         if len(username) > 10:
             messages.error(
                 request, " Your user name must be under 10 characters")
@@ -175,9 +180,6 @@ def signup(request):
         if not username.isalnum():
             messages.error(
                 request, " User name should only contain letters and numbers")
-            return redirect('signup')
-        if (password != confpassword):
-            messages.error(request, " Passwords do not match")
             return redirect('signup')
 
         match = None
@@ -187,15 +189,6 @@ def signup(request):
             pass
         if(match):
             messages.error(request, " This email is already registered !! ")
-            return redirect('signup')
-        match = None
-        try:
-            match = User1.objects.get(phone=phone)
-        except User1.DoesNotExist:
-            pass
-        if(match):
-            messages.error(
-                request, " This Phone Number is already registered !! ")
             return redirect('signup')
         match = None
         try:
@@ -236,9 +229,45 @@ def signup(request):
         )
         messages.success(request, "OTP is sent to your email..!!!")
 
-        return render(request, "shop/login.html", {'otp': True, 'usr': myuser})
-    return render(request, "shop/login.html")
+        return render(request, "shop/signup.html", {'otp': True, 'usr': myuser})
+    return render(request, "shop/signup.html")
 
+def forgot(request):
+    if request.method == "POST":
+        get_otp = request.POST.get('otp')
+        if get_otp:
+            get_user = request.POST.get('usr')
+            get_pass = request.POST.get('password')
+            usr = User.objects.get(username=get_user)
+            usr2 = User1.objects.get(username=get_user)
+            if int(get_otp) == UserOTP.objects.filter(user=usr).last().otp:
+                usr.password=get_pass
+                usr.save()
+                print(usr.password)
+                usr2.password=get_pass
+                usr2.save()
+                messages.success(request, "Password Changed Successfully")
+                return redirect("signup")
+            messages.error(request, "Entered Wrong OTP")
+            return redirect("signup")
+        loginusername = request.POST['username']
+        if not User.objects.filter(username=loginusername).exists():
+            messages.error(request, "Invalid credentials! Please try again")
+            return redirect("signup")
+        myuser = User.objects.get(username=loginusername)
+        usr_otp = random.randint(100000, 999999)
+        UserOTP.objects.create(user=myuser, otp=usr_otp)
+        mess = f"Hello {loginusername} \n\nYour OTP is {usr_otp} \n\nPlease Do not share it with anyone..!!\nIf you didn't requested to change password, you can safely ignore this email..!!\n\nYou may be required to register with the Site. You agree to keep your password confidential and will be responsible for all use of your account and password. We reserve the right to remove, reclaim, or change a username you select if we determine, in our sole discretion, that such username is inappropriate, obscene, or otherwise objectionable. \n\nAlgo99\nDelhi Technological University \nDelhi, India \nalgo99.sudhanshu@gmail.com"
+        send_mail(
+            "Welcome to algo99 -Verify Your Email",
+            mess,
+            settings.EMAIL_HOST_USER,
+            [myuser.email],
+            fail_silently=False
+        )
+        messages.success(request, "OTP is sent to your email..!!!")
+        return render(request, "shop/forgot.html", {'otp': True, 'usr': myuser})
+    return render(request, "shop/forgot.html")
 
 @login_required(login_url='/signup')
 def index(request):
@@ -262,7 +291,6 @@ def handleLogin(request):
     if request.method == "POST":
         print(request.user)
         get_otp = request.POST.get('otp')
-
         if get_otp:
             get_user = request.POST.get('usr')
             usr = User.objects.get(username=get_user)
@@ -280,15 +308,8 @@ def handleLogin(request):
                 return redirect(request, "shop/login.html", {'otp': True, 'usr': usr})
         loginusername = request.POST['username']
         loginpassword = request.POST['password']
-        user = authenticate(username=loginusername, password=loginpassword)
-        if user is not None:
-            myuser = User1.objects.get(username=loginusername)
-            params = {'myuser': myuser}
-            # messages.success(request, "Successfully Logged In")
-            login(request, user)
-            # return redirect('index',params)
-            return redirect("index")
-        elif not User.objects.filter(username=loginusername).exists():
+        # user = authenticate(username=loginusername, password=loginpassword)
+        if not User.objects.filter(username=loginusername).exists():
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("signup")
         elif not User.objects.get(username=loginusername).is_active:
@@ -307,11 +328,19 @@ def handleLogin(request):
             messages.success(request, "OTP is sent to your email..!!!")
 
             return render(request, "shop/login.html", {'otp': True, 'usr': myuser})
+        elif User.objects.get(username=loginusername).password==loginpassword:
+            user=User.objects.get(username=loginusername)
+            myuser = User1.objects.get(username=loginusername)
+            params = {'myuser': myuser}
+            login(request, user)
+            return redirect("index")
         else:
+            print("hii2")
+            print(loginusername)
+            print(loginpassword)
             messages.error(request, "Invalid credentials! Please try again")
             return redirect("signup")
-
-    return HttpResponse("404- Not found")
+    return render(request, "shop/login.html")
 
 
 def handleLogout(request):
@@ -327,6 +356,7 @@ def withdraw(request):
 
 
 def resendOTP(request):
+    print("hii")
     if request.method == "GET":
         get_usr = request.GET['usr']
         if User.objects.filter(username=get_usr).exists() and not User.objects.get(username=get_usr).is_active:
@@ -342,6 +372,7 @@ def resendOTP(request):
                 [usr.email],
                 fail_silently=False
             )
+            print("hii")
             messages.success(request, "OTP is sent to your email..!!!")
             return HttpResponse("Resend")
     return HttpResponse("Can't Send")

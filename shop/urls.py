@@ -23,5 +23,6 @@ urlpatterns = [
     path("withdraw", views.withdraw, name="withdraw"),
     path("resendOTP", views.resendOTP, name="resendOTP"),
     path("key", views.key, name="key"),
+    path("forgot", views.forgot, name="forgot"),
     path("tradingview_webhook/<str:passphrase>", views.tradingview_webhook, name='tradingview_webhook'),
 ]

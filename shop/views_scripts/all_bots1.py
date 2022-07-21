@@ -142,3 +142,4 @@ def all_bots(request):
     myuser = User1.objects.get(username=current_user)
     params = {'zipped': zipped, 'myuser': myuser}
     return render(request, "shop/all_bots.html", params)
+    

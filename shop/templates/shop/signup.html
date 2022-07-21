@@ -13,13 +13,42 @@
 	<meta property="og:description" content="Dompet : Payment Admin Template">
 	<meta property="og:image" content="https://dompet.dexignlab.com/xhtml/social-image.png">
 	<meta name="format-detection" content="telephone=no">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     {% load static %}
 	<!-- PAGE TITLE HERE -->
 	<title>Register</title>
-	
+	<style>.alert-danger {
+        padding: 20px;
+        background-color: #f44336; /* Red */
+        color: white;
+        margin-bottom: 15px;
+      }
+      
+            .alert-success {
+        padding: 20px;
+        background-color: green; /* Red */
+        color: white;
+        margin-bottom: 15px;
+      }
+  
+      
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+        color: black;
+      }</style>
 	<!-- FAVICONS ICON -->
     <link
     rel="shortcut icon"
@@ -27,49 +56,20 @@
     type="image/png"
   />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <style>.alert-danger {
-      padding: 20px;
-      background-color: #f44336; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
-    
-          .alert-success {
-      padding: 20px;
-      background-color: green; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
 
-    
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    
-    /* When moving the mouse over the close button */
-    .closebtn:hover {
-      color: black;
-    }</style>
 </head>
 
 <body class="vh-100">
-  <div id="flash">
-    {% if messages %}
-     {% for message in messages %}
-     <div class="alert-{{message.tags}}">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      {{message}}
-    </div>
-     {% endfor %}
-    {% endif %}
-</div>
+    <div id="flash">
+        {% if messages %}
+         {% for message in messages %}
+         <div class="alert-{{message.tags}}">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{message}}
+        </div>
+         {% endfor %}
+        {% endif %}
+  </div>
     {% if otp %}
     <div class="authincation h-100">
         <div class="container h-100">
@@ -79,12 +79,12 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                  <div class="text-center mb-3">
-                                    <img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt="">
-                                                      
-                                  </div>
+									<div class="text-center mb-3">
+										<a href="/"><img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt=""></a>
+                                        <!-- <a href="index.html"><img src="{% static 'shop/img/2 blue 02.png' %}" alt=""></a> -->
+									</div>
                                     <h4 class="text-center mb-4">Enter Your OTP</h4>
-                                    <form action="/handleLogin" method="post" >{% csrf_token %}
+                                    <form action="/signup" method="post" >{% csrf_token %}
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>OTP</strong></label>
                                             <input type="text" class="form-control" name="otp" placeholder="Enter Your OTP">
@@ -95,7 +95,7 @@
                                         </div>
                                         
                                     </form>
-                                    <button type="submit" value="Resend OTP" id="resendOTPmess" onclick="ReSendOTP('{{usr.username}}', 'resendOTPmess')" class="btn solid">RESEND</button>
+                                    <button value="Resend OTP" id="resendOTPmess" onclick="ReSendOTP('{{usr.username}}', 'resendOTPmess')" class="btn solid">RESEND</button>
                                 </div>
                             </div>
                         </div>
@@ -113,33 +113,34 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                  <div class="text-center mb-3">
-                                    <a href="/"><img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt=""></a>            
-                                  </div>
-                                    <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form action="/handleLogin" method="post">{% csrf_token %}
+									<div class="text-center mb-3">
+										<img height="100" src="{% static 'shop/img/2 blue 02.png' %}" alt="">
+                                       
+									</div>
+                                    <h4 class="text-center mb-4">Sign up your account</h4>
+                                    <form action="/signup" method="post" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions'); return false; }">{% csrf_token %}
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Username</strong></label>
                                             <input type="text" class="form-control" name="username" placeholder="username">
                                         </div>
-                                       
+                                        <div class="mb-3">
+                                            <label class="mb-1"><strong>Email</strong></label>
+                                            <input type="email" class="form-control"  name="email" placeholder="hello@example.com">
+                                        </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password">
+                                            <input type="password" class="form-control" name="pass1" placeholder="Password">
                                         </div>
-                                        <div class="row d-flex justify-content-between mt-4 mb-2">
-                                  
-                                          <div class="mb-3">
-                                              <a class="text-primary" href="/forgot">Forgot Password?</a>
-                                          </div>
-                                      </div>
-                                      <div class="text-center">
-                                          <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
-                                      </div>
-                                  </form>
-                                  <div class="new-account mt-3">
-                                      <p>Don't have an account? <a class="text-primary" href="/signup">Sign up</a></p>
-                                  </div>
+                                        <div >
+                                            <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a class="text-primary" href="/terms">Terms and Conditions</a>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Already have an account? <a class="text-primary" href="/handleLogin">Sign in</a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
