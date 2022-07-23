@@ -79,12 +79,7 @@
               <li class="nav-item">
                 <a class="nav-link page-scroll" href="#features">Services</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link page-scroll" href="#showcase">Bots</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link page-scroll" href="#pricing">Pricing</a>
-              </li>
+
               <li class="nav-item">
                 <a class="nav-link page-scroll" href="#team">Team</a>
               </li>
@@ -95,7 +90,7 @@
                 <a class="nav-link page-scroll" href="#contact">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-singin" href="/signup">Login</a>
+                <a class="btn btn-singin" href="/handleLogin">Login</a>
               </li>
             </ul>
           </div>
@@ -968,7 +963,9 @@
         <div class="row">
           <!-- Start Col -->
           <div class="col-lg-6 col-md-12">
-            <form id="contactForm">
+            
+            <form id="contactForm" method="post">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -1040,7 +1037,7 @@
                     <div class="help-block with-errors"></div>
                   </div>
                   <div class="submit-button">
-                    <button class="btn btn-common" id="submit" type="submit" >
+                    <button class="btn btn-common" id="submit" type="submit" onclick= "url_call('/query_message')" >
                       Submit
                     </button>
                     <div id="msgSubmit" class="h3 hidden"></div>
@@ -1188,6 +1185,14 @@
     <script src="{% static 'shop/bootstrap.min.js' %}"></script>
     <script src="{% static 'shop/owl.carousel.js' %}"></script>
     <script src="{% static 'shop/jquery.nav.js' %}"></script>
+    <script>
+      function url_call(url) {
+          window.open(url);
+          // $.get('YOUR_VIEW_HERE/'+pk+'/', function (data) {
+          //     alert("counter updated!");
+          // });
+      }
+  </script>
     <script src="{% static 'shop/scrolling-nav.js' %}"></script>
     <script src="{% static 'shop/jquery.easing.min.js' %}"></script>
     <script src="{% static 'shop/nivo-lightbox.js' %}"></script>
