@@ -929,6 +929,7 @@
                 <span class="nav-text">add api</span>
               </a>
             </li>
+
             <li>
               <a href="javascript:happy()" class="ai-icon" aria-expanded="false">
                 <i class="flaticon-022-copy"></i>
@@ -960,20 +961,20 @@
 
             <div style="padding-bottom: 15px;">
               <li class="nav-item">
-                <Copy href="javascript:void(0);" class="btn btn-primary d-sm-inline-block">Copy Webhook-url<i class="las la-signal ms-3 scale5"></i></a>
+                <a href="javascript:happy()" class="btn btn-primary d-sm-inline-block">Copy Webhook-url<i class="las la-signal ms-3 scale5"></i></a>
               </li>
             </div>
 
 
             <div style="padding-bottom: 15px; ">
-              <li class="nav-item">
-                <a href="javascript:void(0);" class="btn btn-primary d-sm-inline-block">Add Telgram alerts<i class="las la-signal ms-3 scale5"></i></a>
+              <li class="nav-item" style="color: black;">
+                <a href="javascript:void(0);" class="btn btn-primary d-sm-inline-block" style=" background-color: rgb(35, 218, 35); border-color: rgb(46, 224, 46);">Add Telgram alerts<i class="las la-signal ms-3 scale5"></i></a>
               </li>
             </div>
 
             <div>
               <li class="nav-item">
-                <a href="javascript:void(0);" class="btn btn-primary d-sm-inline-block">Generate Report<i class="las la-signal ms-3 scale5"></i></a>
+                <a href="javascript:void(0);" class="btn btn-primary d-sm-inline-block" style=" background-color: orange; border-color:orange;">Generate Report<i class="las la-signal ms-3 scale5"></i></a>
               </li>
             </div>
 
@@ -1514,9 +1515,11 @@
     <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
     <script src="{% static 'vendor/wnumb/wNumb.js' %}"></script>
     <script>
-    function happy() { sweetAlert("Pass Phrase Copied !!"); navigator.clipboard.writeText
-("{{ myuser.passphrase }}");}
-  </script>
+      function happy() {
+        sweetAlert("Pass Phrase Copied !!"); navigator.clipboard.writeText
+          ("{{ myuser.passphrase }}");
+        }
+    </script>
     <!-- Dashboard 1 -->
     <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
 

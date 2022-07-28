@@ -17,6 +17,7 @@ from smartapi import SmartConnect
 from py5paisa.order import Order, OrderType, AHPlaced
 from py5paisa import FivePaisaClient
 
+
 def tradingview_to_brkr(myuser,recieved_data,info,bot):
     try:
         if "BINANCE" in recieved_data['BRK']:
@@ -67,6 +68,6 @@ def tradingview_to_brkr(myuser,recieved_data,info,bot):
             tradingview_to_5paisa(recieved_data,client,myuser,bot)
 
     except Exception as e:
-        bot.sendMessage(traceback.format_exc())
+        bot.sendMessage(1039725953,str(traceback.format_exc()))
 
 

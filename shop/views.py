@@ -22,8 +22,7 @@ import telepot
 import json
 bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
 bot.getMe()
-print(bot)
-print("**************************")
+
 
 
 client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW","v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
@@ -173,6 +172,24 @@ def add_telegram(request):
         return redirect('index')
 
 
+def query_message(request):
+    print("klsdfjlksdjflksdjflksdjflkdsjlfkjsdklfjsdklfjsdklfjsdklfjksdlfjksldj")
+
+    print(request)
+    if request.method == "POST":
+        print("######################")
+        name=request.POST['name']
+        msg_subject=request.POST['msg_subject']
+        email=request.POST['email']
+        
+        budget=request.POST['budget']
+        message=request.POST['message']
+        print("######################")
+        print(name,msg_subject,email,budget,message)
+
+        return redirect('index')
+    return redirect('index')
+    
 @csrf_exempt
 def tradingview_webhook(request,passphrase):
     print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")

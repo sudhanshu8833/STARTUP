@@ -40,7 +40,7 @@ def send_order(recieved_data,client,quan,price,myuser,bot):
         quantity=quan
 
 
-        print("^^^^^^^^^^^^^^")
+
  
         if recieved_data['OT']=='MARKET':
             print(str(symbol.upper()))
@@ -50,7 +50,7 @@ def send_order(recieved_data,client,quan,price,myuser,bot):
 
             client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity))
 
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
 
         if recieved_data['OT']=='LIMIT':
             
@@ -63,7 +63,7 @@ def send_order(recieved_data,client,quan,price,myuser,bot):
 
 
             client.create_order(str(symbol.upper()),str(order_type.lower()),str(transaction_type.lower()),float(quantity),float(limit_price))
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
 
         if recieved_data['OT']=='LIMIT':
             p = tradingview_orders(broker="KUCOIN",username=myuser.username,symbol=symbol, Price_in=limit_price,time_in=time.time(),order_type=order_type,transaction_type=transaction_type,quantity=quantity)

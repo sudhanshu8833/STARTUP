@@ -9,7 +9,7 @@ from alpaca_trade_api.rest import REST, TimeFrame
 
 def make_object_binance(binance_api_key,binance_secret_key,username):
     try:
-        
+
         with open("keys.json") as json_data_file:
             data3 = json.load(json_data_file)  
         print(data3)
