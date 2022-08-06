@@ -25,9 +25,9 @@ bot.getMe()
 
 
 
-client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW","v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
+# client = Client("GBCTCkf6qgDQSZrPJWp513J69pJ2yVC8Fntdos7REMs5kyWn4ICJ2FNKnX9CM7WW","v0gKOvAfruQaXGbk77W1CsIWf9CVR9kL0U2DEyru2pUwAapXrfyfAMGrEZIdSyaN")
 
-info = client.futures_exchange_info()
+# info = client.futures_exchange_info()
 # from kucoin.client import Trade
 # client1 = Trade(key='628f9f8a43ddbc0001e243d2', secret='6c138913-3815-486e-bb97-c6c38c164af1', passphrase='@Support123', is_sandbox=False, url='')
 
@@ -67,6 +67,7 @@ def key(request):
             myuser = User1.objects.get(username=current_user)
 
             # make_object_alpaca(alpacaapi,alpacasecret,uri,myuser.username)
+
 
             myuser.alpaca_api_keys = alpacaapi
             myuser.alpaca_secret_keys = alpacasecret
