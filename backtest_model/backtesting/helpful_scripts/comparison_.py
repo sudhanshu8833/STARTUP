@@ -54,7 +54,7 @@ def comparison_output(side_1,mid,side_2):
 def formula_maker(signals,formula):
     dicts={}
     for i in range(len(signals)):
-        dicts['c'+str(i)]=signals[i]
+        dicts['C'+str(i)]=signals[i]
 
 
     _locals = locals()

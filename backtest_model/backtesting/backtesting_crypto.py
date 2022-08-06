@@ -6,6 +6,7 @@ import yfinance as yf
 from datetime import datetime as dt
 from .helpful_scripts.indicator_ import *
 from .helpful_scripts.comparison_ import *
+from .helpful_scripts._formula import *
 
 
 class run_strategy_crypto():
@@ -61,8 +62,8 @@ class run_strategy_crypto():
             _condition = condition[condition_name[i]]
 
             signals.append(self.condition(_condition))
-
-        return formula_maker(signals, condition['formula'])
+        formula=making_formula(condition['formula'],"")
+        return formula_maker(signals, formula)
 
     def custom_indicator():
         pass

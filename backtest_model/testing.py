@@ -52,22 +52,7 @@ import numpy as np
 # # Test case when range crosses midnight
 # print(is_time_between(time(22,0), time(4,00)))
 
-#     "C1":{
-#         "operator":'and',
-#         "C2":{
-#             "operator":'or',
-#             'C3':{
-#             "operator":'or',
-#             'C8':None
-#         }
-#         }
-#     },
-#     "operator1":'or',
-#     "C4":None,
 
-#     "operator2":'and',
-#     "C5":None,
-# }
 
 # formula={
 #     "C1":None,
@@ -85,31 +70,31 @@ import numpy as np
 #     print(key)
 # print(formula['C1']['C2'])
 
+formula={"dicts['C1']": {"operator": "&", "dicts['C2']": "None"}}
+def making_formula(formula,made_string=""):
 
-# def making_formula(formula,made_string=""):
+    print(formula)
+    for key,value in formula.items():
 
-#     print(formula)
-#     for key,value in formula.items():
+        if 'C' in key:
+            if value==None:
+                made_string=made_string+key
 
-#         if 'C' in key:
-#             if value==None:
-#                 made_string=made_string+key
+            else:
+                made_string=made_string+'(' + key
+                made_string=made_string+' '+value['operator']+' '
+                made_string=made_string+list(formula[key].keys())[1]+')'
+                formulas={
+                    list(formula[key].keys())[1]:list(formula[key].values())[1]
+                }
+                # print(formulas)
+                # making_formula(formulas,made_string=made_string)
 
-#             else:
-#                 made_string=made_string+'(' + key
-#                 made_string=made_string+' '+value['operator']+' '
-#                 made_string=made_string+list(formula[key].keys())[1]+')'
-#                 formulas={
-#                     list(formula[key].keys())[1]:list(formula[key].values())[1]
-#                 }
-#                 # print(formulas)
-#                 # making_formula(formulas,made_string=made_string)
+        elif 'operator' in key:
+            made_string=made_string +' '+value +' '
 
-#         elif 'operator' in key:
-#             made_string=made_string +' '+value +' '
-
-#     return made_string
-# print(making_formula(formula,made_string=""))
+    return made_string
+print(making_formula(formula,made_string=""))
 
 # def making_formula(formula,made_string="",i=0):
 

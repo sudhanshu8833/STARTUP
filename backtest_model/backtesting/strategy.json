@@ -26,7 +26,7 @@
 
     "buy_cond":{
         "length":1,
-        "formula":"(C1 A C2) O (C2 A C3) A C4",
+        "formula":{"dicts['C1']": {"operator": "&", "dicts['C2']": "None"}},
         "C1":{
             "type":"indicator",
             "side_1":{
@@ -45,7 +45,7 @@
         },
         "C2":{
             "type":"time",
-            "value":1638947283,
+            "inputs":[9,30],
             "mid":">="
 
 
