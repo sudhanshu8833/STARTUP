@@ -78,8 +78,8 @@ def key(request):
 
         elif brokerr == "angel":
             angelapi = request.POST['api']
-            angelid = request.POST['secret']
-            angelpassword = request.POST['optradio']
+            angelid = request.POST['client']
+            angelpassword = request.POST['pass']
 
             myuser = User1.objects.get(username=current_user)
 
@@ -135,8 +135,14 @@ def key(request):
 
             messages.success(request, "Successfully Added/Changed 5paisa Keys")
             return redirect('index')
-
-
+        elif brokerr == "paper":
+            myuser = User1.objects.get(username=current_user)
+            if myuser.binance_API_keys=="FALSE":
+                myuser.binance_API_keys="TRUE"
+                myuser.save()
+            else:
+                myuser.binance_API_keys="FALSE"
+                myuser.save()
         messages.success(request, "Successfully Added/Changed Keys")
         return redirect('index')
 

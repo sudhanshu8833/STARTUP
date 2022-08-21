@@ -5,6 +5,7 @@ import json
 from .backtesting.backtesting_crypto import run_strategy_crypto
 from .backtesting.backtesting_stock import run_strategy_stock
 
+
 def backtest(request):
     # if request.method=="POST":
     #     data=request.POST['data']

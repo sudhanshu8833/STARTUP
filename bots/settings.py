@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'paytm',
     'paypal',
     'backtest_model',
+    'clients.datamanagement',
+
 ]
 
 MIDDLEWARE = [

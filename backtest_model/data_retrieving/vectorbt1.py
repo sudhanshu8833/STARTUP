@@ -43,7 +43,7 @@ def custom_indicator(close,rsi_window=14,ma_window=50):
     rsi=rsi.reshape(len(rsi),1)
     print(rsi)
     ma=vbt.MA.run(close,ma_window).ma.to_numpy()
-
+    
     trend=np.where(rsi>70,-1,0)
     trend=np.where((rsi<30)&(close<ma),1,trend)
     # print(trend)

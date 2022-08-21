@@ -1,0 +1,93 @@
+{
+
+    "instrument":"CRYPTO",
+    "strategy_name":"testing",
+    "strategy_id":"kdDaA",
+    "time_frame":"15m",
+    "period":"1mo",
+    "symbol":"BTC-USD",
+    "accumulate":"addonly",
+    "on_candle_close":"True",
+    "fees":0.001,
+    "slippage":0.002,
+    "reject_prob":2,
+    "lock_cash":"True",
+    "log":"True",
+    "max_logs":1000,
+    "long_conflict":0,
+    "short_conflict":0,
+    "direction_conflict":0,
+    "opposite_conflict":0,
+
+    "sl_stop":0.01,
+    "sl_trail":"True",
+    "tp_stop":0.02,
+
+
+    "buy_cond":{
+        "length":1,
+        "formula":{"dicts['C1']": {"operator": "&", "dicts['C2']": "None"}},
+        "C1":{
+            "type":"indicator",
+            "side_1":{
+                "ind_name":"RSI",
+                "inputs":[14,"close"],
+                "output":"rsi"
+            },
+            "mid":"crossover",
+            "side_2":{
+                "ind_name":"VALUE",
+                "inputs":20,
+                "output":"value"
+            }
+
+
+        },
+        "C2":{
+            "type":"time",
+            "inputs":[9,30],
+            "mid":">="
+
+
+
+        },
+        "C3":{
+            "type":"condition_based",
+            "side_1":"mean(candle('BTCUSDT','15m',indicator={'RSI':{'inputs':[14,'Close'],'output':'rsi'})['RSI'][-6:-1]))",
+            "mid":">=",
+            "side_2":"mean(candle('ETHUSDT','30m')['MACD'][-5:])"
+
+        }
+
+
+
+    },
+
+    "buy_exits":{
+        "length":1,
+        "formula":"(C1 A C2) O (C2 A C3) A C4",
+        "C1":{
+            "type":"indicator",
+            "side_1":{
+                "ind_name":"RSI",
+                "inputs":[14,"close"],
+                "output":"rsi"
+            },
+            "mid":"crossover",
+            "side_2":{
+                "ind_name":"value",
+                "inputs":[20],
+                "output":"value"
+            }
+
+        }
+
+
+
+    },
+    "sell_cond":"False",
+    "sell_exits":"False"
+
+}
+
+

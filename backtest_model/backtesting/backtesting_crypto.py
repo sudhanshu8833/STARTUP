@@ -7,9 +7,11 @@ from datetime import datetime as dt
 from .helpful_scripts.indicator_ import *
 from .helpful_scripts.comparison_ import *
 from .helpful_scripts._formula import *
+from .helpful_scripts.condition_comparision import *
 
 
 class run_strategy_crypto():
+
 
     def __init__(self, strategy):
         self.parameters = strategy
@@ -22,23 +24,25 @@ class run_strategy_crypto():
 
     def condition_indicator(self, condition_params):
 
-
         _side_1 = output(self.data_frame, condition_params['side_1']['ind_name'],
-                        condition_params['side_1']['inputs'], condition_params['side_1']['output']).to_numpy()
+                         condition_params['side_1']['inputs'], condition_params['side_1']['output']).to_numpy()
 
         _side_2 = output(self.data_frame, condition_params['side_2']['ind_name'],
-                        condition_params['side_2']['inputs'], condition_params['side_2']['output']).to_numpy()
-        # if condition_params['mid']!="crossover" and condition_params['mid']!="crossunder":
-        #     if condition_params['side_1']['ind_name']=="VALUE":
-        #         _side_1=_side_1[0]
-        #     if condition_params['side_2']['ind_name']=="VALUE":
-        #         _side_2=_side_2[0]
+                         condition_params['side_2']['inputs'], condition_params['side_2']['output']).to_numpy()
 
         return comparison_output(_side_1, condition_params['mid'], _side_2)
 
-    def condition_time(self,condition_params):
+    def condition_condition_based(self, condition_params):
 
-        return comparison_output_time(self.data_frame,condition_params['side_2']['inputs'],condition_params['side_2']['mid'])
+        _side_1 = comparision_output(condition_params['side_1']).to_numpy()
+
+        _side_2 = comparision_output(condition_params['side_2']).to_numpy()
+
+        return comparison_output(_side_1, condition_params['mid'], _side_2)
+
+    def condition_time(self, condition_params):
+
+        return comparison_output_time(self.data_frame, condition_params['side_2']['inputs'], condition_params['side_2']['mid'])
 
     def condition(self, condition_params):
         if condition_params['type'] == 'indicator':
@@ -48,7 +52,11 @@ class run_strategy_crypto():
         elif condition_params['type'] == 'time':
             signal = self.condition_time(condition_params)
             return signal
-        
+
+        elif condition_params['type'] == 'condition_based':
+            signal = self.condition_condition_based(condition_params)
+            return signal
+
     def entry_condition(self, condition):
 
         if condition == "False":
@@ -62,7 +70,7 @@ class run_strategy_crypto():
             _condition = condition[condition_name[i]]
 
             signals.append(self.condition(_condition))
-        formula=making_formula(condition['formula'],"")
+        formula = making_formula(condition['formula'], "")
         return formula_maker(signals, formula)
 
     def custom_indicator():
