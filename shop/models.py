@@ -69,7 +69,7 @@ class User1(models.Model):
     Total_invested=models.FloatField(default=0)
     Max_drawdown=models.FloatField(default=0)
     winning=models.IntegerField(default=100)
-    # bots_owned=models.CharField(max_length=20,default=0)
+
 
 
 

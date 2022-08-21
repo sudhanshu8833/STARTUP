@@ -1,4 +1,4 @@
-from appscript import k
+# from appscript import k
 from finta import TA
 from pyparsing import col
 import pandas as pd
