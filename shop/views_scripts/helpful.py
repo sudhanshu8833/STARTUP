@@ -12,35 +12,35 @@ from django.conf import settings
 
 
 def home(request):
-    total = []
-    total2 = []
-    Buy1 = BOT.objects.get(bot_id=1)
-    text = Buy1.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy1)
-    Buy2 = BOT.objects.get(bot_id=2)
-    text = Buy2.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy2)
-    Buy3 = BOT.objects.get(bot_id=3)
-    text = Buy3.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy3)
-    Buy4 = BOT.objects.get(bot_id=4)
-    text = Buy4.description
-    main = text.split("\ ")
-    total2.append(main)
-    total.append(Buy4)
-    zipped = zip(total, total2)
+    # total = []
+    # total2 = []
+    # Buy1 = BOT.objects.get(bot_id=1)
+    # text = Buy1.description
+    # main = text.split("\ ")
+    # total2.append(main)
+    # total.append(Buy1)
+    # Buy2 = BOT.objects.get(bot_id=2)
+    # text = Buy2.description
+    # main = text.split("\ ")
+    # total2.append(main)
+    # total.append(Buy2)
+    # Buy3 = BOT.objects.get(bot_id=3)
+    # text = Buy3.description
+    # main = text.split("\ ")
+    # total2.append(main)
+    # total.append(Buy3)
+    # Buy4 = BOT.objects.get(bot_id=4)
+    # text = Buy4.description
+    # main = text.split("\ ")
+    # total2.append(main)
+    # total.append(Buy4)
+    # zipped = zip(total, total2)
 
-    data=User1.objects.filter(password='123',username='sid883')
-    print(data)
-    print("@@@@@@@@@@@@@@@@@@@@")
-    params = {'zipped': zipped}
-    return render(request, "shop/home1.html", params)
+    # data=User1.objects.filter(password='123',username='sid883')
+    # print(data)
+    # print("@@@@@@@@@@@@@@@@@@@@")
+    # params = {'zipped': zipped}
+    return render(request, "shop/home1.html")
 
 
 @login_required(login_url='/signup')
