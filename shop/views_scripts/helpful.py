@@ -356,7 +356,7 @@ def withdraw(request):
 
 
 def resendOTP(request):
-    print("hii")
+
     if request.method == "GET":
         get_usr = request.GET['usr']
         if User.objects.filter(username=get_usr).exists() and not User.objects.get(username=get_usr).is_active:

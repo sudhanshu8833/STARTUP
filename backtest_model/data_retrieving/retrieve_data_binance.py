@@ -54,8 +54,7 @@ def main():
     twm.start_multiplex_socket(callback=handle_message,streams=stream)
     twm.join()
 
-if __name__=="__main__":
-    main()
+
 
     # {'stream': 'btcusdt@trade', 'data': {'e': 'trade', 'E': 1658661250040,
     #  's': 'BTCUSDT', 't': 1514573132, 'p': '22775.95000000', 'q': '0.01693000',

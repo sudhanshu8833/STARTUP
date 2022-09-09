@@ -1087,3 +1087,5 @@ def algo_get_STC(df, inputs=[23,50,10,3,"close"], offset=0):
     return numpy_comversion(STC)
 
 
+
+
