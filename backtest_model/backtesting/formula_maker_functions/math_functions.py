@@ -1,7 +1,5 @@
 import numpy as np
 
-
-
 def algo_max(np1,np2):
     return np.maximum(np1,np2)
 

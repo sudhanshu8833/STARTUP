@@ -41,7 +41,6 @@ class run_strategy_crypto():
         return comparison_output(_side_1, condition_params['mid'], _side_2)
 
     def condition_time(self, condition_params):
-
         return comparison_output_time(self.data_frame, condition_params['side_2']['inputs'], condition_params['side_2']['mid'])
 
     def condition(self, condition_params):

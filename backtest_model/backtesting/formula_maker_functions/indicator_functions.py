@@ -98,7 +98,7 @@ def algo_get_RSI(df, inputs=[14,"close"], offset=0):
     if offset>0:
         RSI=RSI.add(offset)
 
-    if offset<0:
+    elif offset<0:
         RSI=RSI.subtract(offset)    
 
     return numpy_comversion(RSI)
