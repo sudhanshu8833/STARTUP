@@ -5,6 +5,6 @@ from django.urls import include
 
 urlpatterns = [
     path("backtesting_instruments", views.backtest, name="backtesting"),
-
+    path("testing", views.testing, name="testing"),
 
 ]

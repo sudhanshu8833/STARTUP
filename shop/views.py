@@ -19,9 +19,9 @@ from .models import User1
 
 from django.conf import settings
 import telepot
-import json
-bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
-bot.getMe()
+# import json
+# bot = telepot.Bot('5365452349:AAElPqo1y-SHXCVcf7EqGCdZ80P858ouiW0')
+# bot.getMe()
 
 
 
