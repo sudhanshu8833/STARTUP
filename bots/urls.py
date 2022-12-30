@@ -23,5 +23,4 @@ path("", include('shop.urls')),
 path("paytm/", include('paytm.urls')),
 path("paypal/", include('paypal.urls')),
 path("backtest/", include('backtest_model.urls'))
-# path("option_bot/",include('clients.datamanagement.urls'))
 ]

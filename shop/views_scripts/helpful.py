@@ -328,20 +328,15 @@ def handleLogin(request):
             messages.success(request, "OTP is sent to your email..!!!")
 
             return render(request, "shop/login.html", {'otp': True, 'usr': myuser})
-        elif User.objects.get(username=loginusername).password==loginpassword:
-            user=User.objects.get(username=loginusername)
-            myuser = User1.objects.get(username=loginusername)
-            params = {'myuser': myuser}
-            login(request, user)
-            return redirect("index")
         else:
-            print("hii2")
-            print(loginusername)
-            print(loginpassword)
-            messages.error(request, "Invalid credentials! Please try again")
-            return redirect("signup")
+            user=authenticate(username= loginusername, password= loginpassword)
+            if user is not None:
+                login(request,user)
+                return redirect("index")
+            else:
+                messages.error(request, "Invalid credentials! Please try again")
+                return redirect("signup")
     return render(request, "shop/login.html")
-
 
 def handleLogout(request):
     logout(request)

@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'shop',
     'paytm',
     'paypal',
-    'backtest_model',
-    'clients.datamanagement',
+    'backtest_model'
 
 ]
 

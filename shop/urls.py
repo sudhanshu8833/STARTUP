@@ -5,7 +5,6 @@ from django.urls import include
 
 urlpatterns = [
     path("", views.home, name="ShopHome"),
-
     path("contact/", views.contact, name="ContactUs"),
     path("tradingview/", views.tradingview, name='tradingview'),
     path("query_message/", views.query_message, name='query_message'),
@@ -26,4 +25,5 @@ urlpatterns = [
     path("key", views.key, name="key"),
     path("forgot", views.forgot, name="forgot"),
     path("tradingview_webhook/<str:passphrase>", views.tradingview_webhook, name='tradingview_webhook'),
+
 ]
